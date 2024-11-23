@@ -47,13 +47,13 @@ export const Login = () => {
       if(Authenticated){navigate('/home')}else{console.log(message)}
           
         })}>
-      <div class="form-group">
-    <label for="email" class="form-label">Email:</label>
-    <input type="text" {...register('email',{required:true})} placeholder="Juan@company.com" name="email" class="form-input"/>
+      <div className="form-group">
+    <label htmlFor="email" className="form-label">Email:</label>
+    <input type="text" {...register('email',{required:true})} placeholder="Juan@company.com" name="email" className="form-input"/>
 </div>
-<div class="form-group">
-    <label for="password" class="form-label">Password:</label>
-    <input type="text" {...register('password',{required:true})} placeholder="*******" name="password" class="form-input"/>
+<div className="form-group">
+    <label htmlFor="password" className="form-label">Password:</label>
+    <input type="text" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
 </div>
         <button className="button"  type='submit'> {loading ? "Loading..." : "Login"}</button>
         </form>

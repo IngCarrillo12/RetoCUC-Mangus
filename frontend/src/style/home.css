@@ -1,3 +1,7 @@
+input{
+    color: black
+
+}
 .container-home{
     display: flex;
     justify-content: center;
