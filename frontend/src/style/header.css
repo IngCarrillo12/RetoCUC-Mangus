@@ -1,0 +1,54 @@
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.header-slogan{
+    width: 50%;
+    z-index: 6 !important;
+}
+.slogan-login{
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+}
+.slogan-register{
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+}
+.header-nav{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 40%;
+}
+.nav-register{
+    color: white;
+    z-index: 6 !important;
+}
+.nav-login{
+    color: black;
+}
+.nav-list{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    list-style: none;
+}
+.header-button{
+    width: 25%;
+    background-color: #004AAD;
+    font-weight: bold;
+    color: white;
+    transition: all linear 300ms;
+}
+.header-button:hover{
+    border: none;
+    background-color: white;
+    border: 1px solid #004AAD;
+    color: #004AAD;
+}
+

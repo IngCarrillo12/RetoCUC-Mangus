@@ -1,0 +1,154 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.bg{
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    background-color: #004AAD;
+    width: 40%;
+    height: 100vh;
+    z-index: 1 !important;
+}
+
+.container-login{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-container-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 500px;
+}
+.login-img{
+    position: relative;
+    left: 5rem;
+    z-index: 7;
+}
+.login-img img{
+    max-width: 800px;
+    z-index: 6;
+}
+
+.login-form{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    width: 45%;
+    padding: 1rem;
+}
+
+.form-title{
+    font-size: 3rem;
+    color:  #004AAD;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 60%;
+    border: 1px solid  #004AAD;
+    padding: 0 .5rem;
+    border-radius: 1.5rem;
+}
+
+.button-login{
+    width: 50%;
+    border-radius: 1rem;
+    margin: .5rem 0 .5rem .5rem;
+    background-color: transparent;
+    color: #004AAD;
+}
+.form-button button:focus{
+    outline: none;
+}
+
+.button-register{
+    background-color: transparent;
+    width: 50%;
+    color: #004AAD;
+    border-radius: 1rem;
+    margin: .5rem 0.5rem .5rem 0rem;
+}
+
+.form-subtitle{
+    text-align: start;
+    font-size: 1rem;
+    width: 70%;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 70%;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: static;
+    width: 100%;
+  }
+  
+  .form-label {
+    font-size: .9rem;
+    color: #0f4183;
+    font-weight: 700;
+    position: relative;
+    top: 0.5rem;
+    margin: 0 0 0 7px;
+    padding: 0 3px;
+    background: white;
+    width: fit-content;
+  }
+  
+  .form-input {
+    width: 100%;
+    height: 45px;
+    font-size: 1rem;
+    padding: 1rem;
+    border: 1px #0f4183 solid;
+    border-radius: 5px;
+    background: white;
+    transition: all linear .2s;
+  }
+  .form-input:hover{
+    border: 2px solid #0f4183;
+  }
+  .form-input:focus {
+    border: 2px solid #0f4183;
+    outline: none;
+  }
+  
+.button{
+    border: 1px solid #004AAD;
+    width: 50%;
+    color: #004AAD;
+    border-radius: 1rem;
+    background-color: transparent;
+    text-align: center;
+    transition: all linear 300ms;
+}
+.button:hover{
+    background-color: #004AAD;
+    color: white;
+}

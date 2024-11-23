@@ -1,0 +1,58 @@
+.card {
+    color:  #000;
+    background-color:  #8DD4EB;
+    padding: 1rem 2rem;
+    width: 33%;
+    border-radius: 1.2rem;
+  }
+
+  .card-wrapper {
+    width: 100%;
+    display: flex;
+    align-items:center;
+    justify-content: end;
+    position: relative;
+    right: -15px;
+  }
+  .card-wrapper svg{
+    width: 1rem;
+  }
+  .card-img{
+    margin: 1rem 0 .5rem;
+  }
+  .card-img img{
+    border-radius: 1.2rem;
+  }
+  .card-title {
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+  
+  .card-subtitle {
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  
+  .card-indicator {
+    margin-top: 2rem;
+    font-weight: 500;
+    font-size: .8rem;
+  }
+  
+  .card-progress progress {
+    width: 100%;
+    height: 4px;
+    border-radius: 2rem;
+  }
+  
+  .card-progress progress::-webkit-progress-bar {
+    background-color: #00000030;
+    border-radius: 100px;
+  }
+  
+  .card-progress progress::-webkit-progress-value {
+    background-color: var(-main-color);
+    border-radius: 100px;
+  }
+  

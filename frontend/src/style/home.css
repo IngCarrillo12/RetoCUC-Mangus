@@ -1,0 +1,52 @@
+.container-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    width: 100%;  
+}
+
+.home-content{
+    width: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+}
+.content-info{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+.content-courses{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.courses-header{
+    display: flex;
+    justify-content: space-between;
+}
+.courses-header-title{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.courses-header-link{
+    text-align: end;
+    color: blue;
+}
+.courses-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    gap: 1rem;
+}
+.dashboard{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+}
+  
