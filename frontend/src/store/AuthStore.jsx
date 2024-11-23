@@ -14,7 +14,7 @@ export const useAuthStore = create(
 
 
       login: async (values) => {
-        set({ loading: true, error: null, isAuthenticated: false }); 
+        set({ loading: true, error: null}); 
         try {
           const data = await fetchLogin(values)
           if (data?.token) {
@@ -40,11 +40,9 @@ export const useAuthStore = create(
       logout: async () => {
         set({ loading: true });
         try {
-          await axios.post("http://localhost:3000/api/auth/logout", null, {
-            withCredentials: true,
-          });
           set({
             user: null,
+            token:null,
             isAuthenticated: false,
             loading: false,
           });

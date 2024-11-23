@@ -1,14 +1,15 @@
 import React from 'react'
 import '../style/menuHome.css'
-export const MenuHome = () => {
+export const MenuHome = ({nameCourse, setCourses, StateCourses,setDashboard ,Dashboard}) => {
+
   return (
     <div className="home-menu">
     <h3 className="menu-title">Mangus</h3>
     <div className="menu-dasboard">
-    <span className="menu-subtitle">Dasboard</span>
+    <span className="menu-subtitle" onClick={()=>{setCourses(!StateCourses); setDashboard(!Dashboard)}}>Dashboard</span>
     </div>
     <section className="menu-section">
-      <span className="section-title">Courses</span>
+      <span className="section-title" onClick={()=>{setCourses(!StateCourses); setDashboard(!Dashboard)}}>Courses</span>
       <ul className="section-list">
         <li>Course</li>
         <li>Course</li>

@@ -1,11 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import "../style/header.css";
+import React from "react";
+import {useAuthStore} from '../store/AuthStore.jsx'
 
 export const Header = () => {
-
-  const navigate = useNavigate()
-
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const { logout } = useAuthStore();
   return (    
     <header className="header">
       <div className="header-slogan">
@@ -17,9 +16,15 @@ export const Header = () => {
           <li className="list-item">Curso</li>
           <li className="list-item">Ayuda</li>
         </ul>
-        <button className="header-button " onClick={()=>navigate('/login')}>
-          Login
-        </button>
+        {
+          isAuthenticated?
+          <div className="nav-user">
+            <img width="52" height="52" onClick={()=>logout()} src="https://img.icons8.com/ios-filled/52/user-male-circle.png" alt="user-male-circle"/>
+          </div>
+          :
+          ''
+        }
+       
       </nav>
     </header>
   );

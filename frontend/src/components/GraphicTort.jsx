@@ -11,14 +11,15 @@ export const GraphicTort= () => {
   const COLORS = ["#00C49F", "#FFBB28", "#FF8042"];
 
   return (
-    <PieChart width={300} height={300}>
+    <PieChart width={400} height={400}>
       <Pie
         data={data}
         dataKey="value"
         nameKey="name"
         cx="50%"
         cy="50%"
-        outerRadius={150}
+        innerRadius={100}
+        outerRadius={160}
         label
       >
         {data.map((entry, index) => (
