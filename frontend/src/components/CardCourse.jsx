@@ -17,7 +17,7 @@ export const CardCourse = () => {
             <path d="m2 20c1.10457 0 2-.8954 2-2s-.89543-2-2-2-2 .8954-2 2 .89543 2 2 2z" />
           </g>
         </svg>
-    </div>
+      </div>
       <div className='card-img'>
         <img src="https://img.freepik.com/vector-gratis/concepto-tutoriales-linea_52683-37480.jpg" alt="" />
       </div>

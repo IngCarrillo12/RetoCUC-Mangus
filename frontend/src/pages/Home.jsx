@@ -20,34 +20,48 @@ export const Home= () => {
           <Header/>          
           <div className="content-info">                      
               {
-                Dashboard?                
-                <div className="dashboard">
-                  <h1>Welcome, Sr Juan</h1>               
+                Dashboard && (
+                  <div className="dashboard">
                     <div className="dashboard-graphics">
-                      <GraphicTort/>
-                      <GraphicBar/>
+                      <div>
+                        <GraphicTort />
+                      </div>
+                      <div>
+                        <GraphicBar />
+                      </div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae pariatur  voluptatibus     maiores, reprehenderit neque qui atque optio itaque excepturi molestias   dignissimos ea quas,    placeat doloribus aspernatur obcaecati sunt consectetur facere.</ p>
-                </div>
-                :''
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae 
+                      pariatur voluptatibus maiores, reprehenderit neque qui atque 
+                      optio itaque excepturi molestias dignissimos ea quas, placeat 
+                      doloribus aspernatur obcaecati sunt consectetur facere.
+                    </p>
+                  </div>
+                )
               }           
            
             {
-              Courses?
-              <div className="content-courses">
-              <div className="courses-header">
-                <span className="courses-header-title">Courses</span>
-                <span className="courses-header-link">View All</span>
-              </div>
-              <div className="courses-cards">
-              <CardCourse/>
-              <CardCourse/>
-              <CardCourse/>
-                  
-                
-              </div>
-            </div>
-              :''
+              Courses ? (
+                <div className="content-courses">
+                  <div className="courses-header">
+                    <span className="courses-header-title">Courses</span>
+                    <span className="courses-header-link">View All</span>
+                  </div>
+                  <div className="courses-grid">
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                    <CardCourse />
+                  </div>
+                </div>
+              ) : (
+                ''
+              )
             }
 
             {

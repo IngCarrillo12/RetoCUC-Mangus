@@ -6,8 +6,8 @@ import {Home} from './pages/Home.jsx'
 //import { useAuthStore } from './store/AuthStore.jsx';
 import { Routes, Route } from "react-router-dom";
 import FormCreate from './components/FormCreate.jsx';
-
 import { CourseDetail } from './pages/CourseDetail.jsx';
+import CommentSection from './components/CommentSection .jsx';
 
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
     <Route index path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/formcreate" element={<FormCreate />} />
+    <Route path="/commentsection" element={<CommentSection />} />
   </Routes>
   </>
   )
