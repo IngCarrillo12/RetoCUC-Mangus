@@ -15,7 +15,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
-app.use('/api/course', courseRoutes);
+app.use('/api/courses', courseRoutes);
 
 const PORT = process.env.PORT ;
 app.listen(PORT, () => {
