@@ -18,4 +18,4 @@ router.get('/lessons/:leccion_id', authenticateToken, getLessonById); // Obtener
 router.put('/lessons/:leccion_id', authenticateToken, updateLesson); // Actualizar lección
 router.delete('/lessons/:leccion_id', authenticateToken, deleteLesson); // Eliminar lección
 
-module.exports = router;
+export default router;

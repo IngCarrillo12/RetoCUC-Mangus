@@ -1,12 +1,12 @@
 import express from 'express';
 import { authenticateToken } from '../middlewares/authMiddleware.js';
-const {
+import {
     createUnit,
     getUnitsByCourseId,
     getUnitById,
     updateUnit,
     deleteUnit
-} = require('../controllers/unitController');
+}from '../controllers/unitController.js';
 
 
 const router = express.Router();
@@ -17,4 +17,4 @@ router.get('/units/:unidad_id', authenticateToken, getUnitById); // Obtener unid
 router.put('/units/:unidad_id', authenticateToken, updateUnit); // Actualizar unidad
 router.delete('/units/:unidad_id', authenticateToken, deleteUnit); // Eliminar unidad
 
-module.exports = router;
+export default router;

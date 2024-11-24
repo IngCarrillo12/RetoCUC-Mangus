@@ -18,4 +18,4 @@ router.get('/resources/:recurso_id', authenticateToken, getResourceById); // Obt
 router.put('/resources/:recurso_id', authenticateToken, updateResource); // Actualizar recurso
 router.delete('/resources/:recurso_id', authenticateToken, deleteResource); // Eliminar recurso
 
-module.exports = router;
+export default router;

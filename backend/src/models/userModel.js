@@ -5,10 +5,10 @@ export const findByEmail = async(email)=>{
         return rows[0];
     }
 
-export const createUser = async (nombre, email, contraseña_hash, rol)=> {
+export const createUser = async (nombre, email, contraseña_hash, rol, area)=> {
         const [result] = await db.query(
-            'INSERT INTO usuarios (nombre, email, contraseña_hash, rol, fecha_registro) VALUES (?, ?, ?, ?, NOW())',
-            [nombre, email, contraseña_hash, rol]
+            'INSERT INTO usuarios (nombre, email, contraseña_hash, area, rol, fecha_registro) VALUES (?, ?, ?, ?, ?, NOW())',
+            [nombre, email, contraseña_hash, area, rol]
         );
         return result.insertId;
     }
