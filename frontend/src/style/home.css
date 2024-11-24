@@ -1,0 +1,95 @@
+input{
+    color: black
+
+}
+.container-home{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    width: 100%;  
+    color: black;
+}
+
+.home-content{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+
+}
+.content-info{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+.content-info h1{
+    padding: 1rem 1rem 2rem;
+}
+.content-courses{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.courses-header{
+    display: flex;
+    justify-content: space-between;
+}
+.courses-header-title{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.courses-header-link{
+    text-align: end;
+    color: blue;
+}
+.courses-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    gap: 1rem;
+}
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 2rem 0;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+.dashboard-graphics{
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+  
+.home-menu {
+    position: fixed; 
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background-color: #2c3e50;
+    transition: width 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .home-menu:hover {
+    width: 200px;
+  }
+
+  .home-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+    transition: margin-left 0.3s ease, width 0.3s ease;
+  }
+
+  .home-menu:hover ~ .home-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }

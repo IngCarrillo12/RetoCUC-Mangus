@@ -1,0 +1,148 @@
+/* Contenedor principal */
+.home-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Tamaño inicial cerrado */
+    height: 100%;
+    background-color: #094293;
+    color: white;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .home-menu:hover {
+    width: 220px; /* Tamaño expandido */
+  }
+  
+  /* Título del menú */
+  .menu-title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0; /* Oculto inicialmente */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    width: 200px;
+  }
+  
+  .home-menu:hover .menu-title {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Secciones del menú */
+  .menu-section {
+    margin: 10px 0;
+    padding: 0 10px;
+  }
+  
+  /* Íconos y texto */
+  .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alineación de texto */
+    gap: 10px; /* Reducido para menor espacio */
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+  }
+  
+  .section-title i {
+    display: flex;
+    align-items: center; /* Centra el ícono verticalmente */
+    justify-content: center; /* Centra el ícono horizontalmente */
+    font-size: 1.3rem;
+    color: white;
+    transition: color 0.3s ease;
+    width: 30px; /* Espacio fijo para íconos */
+    text-align: center;
+  }
+  
+  .section-title span {
+    opacity: 0; /* Oculto inicialmente */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  /* Mostrar texto al hacer hover */
+  .home-menu:hover .section-title span {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Hover en las secciones */
+  .section-title:hover {
+    background-color: #1abc9c;
+    color: white;
+  }
+  
+  .section-title:hover i {
+    color: white;
+  }
+  
+  /* Botones */
+  .section-container-button button,
+  .container-logout button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Ícono y texto alineados a la izquierda */
+    gap: 10px;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    opacity: 0; /* Ocultos inicialmente */
+    visibility: hidden;
+    transition: background-color 0.3s, transform 0.2s, opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .home-menu:hover .section-container-button button,
+  .home-menu:hover .container-logout button {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .section-container-button button:hover,
+  .container-logout button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+  /* Botones Create*/
+  .section-container-button button {
+    width: 80%;
+  }
+
+  .container-logout {
+    margin-top: auto;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  /* Lista desplegable */
+  .section-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 30px;
+    display: none;
+  }
+  
+  .menu-section:hover .section-list {
+    display: block;
+  }
+  

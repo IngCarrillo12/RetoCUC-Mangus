@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Login } from './components/Login.jsx'
 import './App.css'
+import { Register } from './components/Register.jsx'
+import {Home} from './pages/Home.jsx'
+//import { Routes, Route, useNavigate } from "react-router-dom";
+//import { useAuthStore } from './store/AuthStore.jsx';
+import { Routes, Route } from "react-router-dom";
+import FormCreate from './components/FormCreate.jsx';
+
+import { CourseDetail } from './pages/CourseDetail.jsx';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  //const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  //console.log(isAuthenticated)
+  //<Route path="/home" element={isAuthenticated*/?<Home/>:navigate('/login')}/>
+  //const navigate = useNavigate()
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    {/* <Header/> */}\
+    <Routes>
+    <Route path='/' element={<CourseDetail/>}/>
+    <Route path="/home" element={<Home />}/>
+    <Route index path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+    <Route path="/formcreate" element={<FormCreate />} />
+  </Routes>
+  </>
   )
 }
 
