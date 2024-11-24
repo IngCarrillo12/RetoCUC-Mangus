@@ -1,11 +1,10 @@
-/* Contenedor principal */
 .home-menu {
     position: fixed;
     top: 0;
     left: 0;
-    width: 60px; /* Tamaño inicial cerrado */
+    width: 60px;
     height: 100%;
-    background-color: #094293;
+    background-color: #001838;
     color: white;
     transition: width 0.3s ease-in-out;
     display: flex;
@@ -82,7 +81,7 @@
   
   /* Hover en las secciones */
   .section-title:hover {
-    background-color: #1abc9c;
+    background-color: #00b89f;
     color: white;
   }
   
@@ -97,7 +96,7 @@
     align-items: center;
     justify-content: flex-start; /* Ícono y texto alineados a la izquierda */
     gap: 10px;
-    background-color: #e74c3c;
+    background-color: #ff8036;
     border: none;
     color: white;
     padding: 10px;
@@ -119,7 +118,7 @@
   
   .section-container-button button:hover,
   .container-logout button:hover {
-    background-color: #c0392b;
+    background-color: #ffad4f;
     transform: scale(1.05);
   }
 

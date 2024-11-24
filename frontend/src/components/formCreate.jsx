@@ -51,6 +51,7 @@ const FormCreate = () => {
     });
   };
 
+
   const onSubmit = (data) => {
     console.log("Form Data:", data);
   };
@@ -226,15 +227,16 @@ const FormCreate = () => {
             </div>
             <div>
               <label>Descripción de la Unidad:</label>
-              <textarea {...register(`units[${unitIndex}].  description`)} />
+              <input {...register(`units[${unitIndex}].  description`)} />
             </div>
           </div>         
 
-          <h4 className="h">Lecciones</h4>
+          <br /><h4 className="h">Lecciones</h4><br />
           {(lessonFields[unitIndex] || []).map((lesson, lessonIndex) => (
             <div key={lessonIndex} className="form-group">
               <div>
-                <label>Título de la Lección:</label>
+              <h4 className="h">Lección {lessonIndex + 1}</h4>
+                <label>Nombre de la Lección:</label>
                 <input
                   type="text"
                   value={lesson.title}
@@ -249,13 +251,99 @@ const FormCreate = () => {
                 />
               </div>
               <div>
-                <label>Recurso:</label>
+                <label>Temáticas:</label>
                 <input
-                  type="text"
-                  value={lesson.resource}
+                  value={lesson.topics}
                   onChange={(e) => {
                     const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].resource = e.target.value;
+                    updatedLessons[lessonIndex].topics = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Resultados de Aprendizaje:</label>
+                <input
+                  value={lesson.learningOutcomes}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].learningOutcomes = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Tipo de Lección:</label>
+                <input
+                  type="text"
+                  value={lesson.lessonType}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].lessonType = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Características de la Lección:</label>
+                <input
+                  value={lesson.characteristics}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].characteristics = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Propósito y/o Storytelling:</label>
+                <input
+                  value={lesson.purpose}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].purpose = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Duración (minutos):</label>
+                <input
+                  type="number"
+                  value={lesson.duration}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].duration = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Semana Sugerida:</label>
+                <input
+                  type="number"
+                  value={lesson.suggestedWeek}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].suggestedWeek = e.target.value;
                     setLessonFields((prev) => ({
                       ...prev,
                       [unitIndex]: updatedLessons,
@@ -264,10 +352,17 @@ const FormCreate = () => {
                 />
               </div>
               <div className="button-container">
-                <button type="button"  className="btn-lesson" onClick={() => removeLesson(unitIndex, lessonIndex)}> Eliminar lección </button>
+                <button
+                  type="button"
+                  className="btn-lesson"
+                  onClick={() => removeLesson(unitIndex, lessonIndex)}
+                >
+                  Eliminar lección
+                </button>
               </div>
             </div>
           ))}
+
 
           <div className="button-container">
             <button type="button"  className="btn-lesson" onClick={() => addLesson(unitIndex)}>Añadir Lección</button>

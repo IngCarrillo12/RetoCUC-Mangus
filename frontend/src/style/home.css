@@ -1,25 +1,28 @@
-input{
-    color: black
 
-}
-.container-home{
+.container-home {
     background-color: aliceblue;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;  
-    width: 100%;  
+    justify-content: flex-start;
+    align-items: flex-start; 
+    width: 100%;
     color: black;
+    flex-direction: column;
+    padding-left: 60px;
+    box-sizing: border-box; 
 }
 
-.home-content{
-    width: 100%;
-    height: 100vh;
+.home-content {
+    width: 100%; 
+    flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 1rem;
-
+    padding: 1rem; 
+    box-sizing: border-box;
+    background-color: aliceblue;
 }
+
 .content-info{
     display: flex;
     flex-direction: column;
@@ -67,7 +70,7 @@ input{
     justify-content: space-around;
     padding: 1rem;
 }
-  
+
 .home-menu {
     position: fixed; 
     left: 0;
@@ -78,7 +81,7 @@ input{
     transition: width 0.3s ease;
     overflow: hidden;
   }
-  
+
   .home-menu:hover {
     width: 200px;
   }

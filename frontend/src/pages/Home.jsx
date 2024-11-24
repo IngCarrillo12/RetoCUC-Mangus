@@ -17,19 +17,18 @@ export const Home= () => {
       <div className="container-home">
        <MenuHome  setCourses={setCourses} setDashboard={setDashboard} setFormulario={setFormulario}/>
         <div className="home-content">
-          <Header/>
-          <div className="content-info">
-            <h1>Welcome, Sr Juan</h1>
+          <Header/>          
+          <div className="content-info">                      
               {
-                Dashboard?
+                Dashboard?                
                 <div className="dashboard">
-              <div className="dashboard-graphics">
-              <GraphicTort/>
-              <GraphicBar/>
-              </div>
-              
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae pariatur voluptatibus maiores, reprehenderit neque qui atque optio itaque excepturi molestias dignissimos ea quas, placeat doloribus aspernatur obcaecati sunt consectetur facere.</p>
-              </div>
+                  <h1>Welcome, Sr Juan</h1>               
+                    <div className="dashboard-graphics">
+                      <GraphicTort/>
+                      <GraphicBar/>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae pariatur  voluptatibus     maiores, reprehenderit neque qui atque optio itaque excepturi molestias   dignissimos ea quas,    placeat doloribus aspernatur obcaecati sunt consectetur facere.</ p>
+                </div>
                 :''
               }           
            
