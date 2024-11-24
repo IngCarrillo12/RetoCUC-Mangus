@@ -1,140 +1,183 @@
 .home-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 60px;
-    height: 100%;
-    background-color: #001838;
-    color: white;
-    transition: width 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  .home-menu:hover {
-    width: 220px;
-  }
-  
-  .menu-title {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    width: 200px;
-  }
-  
-  .home-menu:hover .menu-title {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .menu-section {
-    margin: 10px 0;
-    padding: 0 10px;
-  }
-  
-  .section-title {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    font-size: 1rem;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s;
-    white-space: nowrap;
-  }
-  
-  .section-title i {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    color: white;
-    transition: color 0.3s ease;
-    width: 30px;
-    text-align: center;
-  }
-  
-  .section-title span {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  
-  .home-menu:hover .section-title span {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .section-title:hover {
-    background-color: #00b89f;
-    color: white;
-  }
-  
-  .section-title:hover i {
-    color: white;
-  }
-  
-  /* Botones */
-  .section-container-button button,
-  .container-logout button {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    background-color: #ff8036;
-    border: none;
-    color: white;
-    padding: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: background-color 0.3s, transform 0.2s, opacity 0.3s ease, visibility 0.3s ease;
-  }
-  
-  .home-menu:hover .section-container-button button,
-  .home-menu:hover .container-logout button {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .section-container-button button:hover,
-  .container-logout button:hover {
-    background-color: #ffad4f;
-    transform: scale(1.05);
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100%;
+  background-color: #001838;
+  color: white;
+  transition: width 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-  .section-container-button button {
-    width: 80%;
-  }
+.home-menu:hover {
+  width: 220px;
+}
 
-  .container-logout {
-    margin-top: auto;
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .section-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0 30px;
-    display: none;
-  }
-  
-  .menu-section:hover .section-list {
-    display: block;
-  }
-  
+.menu-title {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  width: 200px;
+}
+
+.home-menu:hover .menu-title {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-section {
+  margin: 10px 0;
+  padding: 0 10px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+
+.section-title i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: white;
+  transition: color 0.3s ease;
+  width: 30px;
+  text-align: center;
+}
+
+.section-title span {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.home-menu:hover .section-title span {
+  opacity: 1;
+  visibility: visible;
+}
+
+.section-title:hover {
+  background-color: #00b89f;
+  color: white;
+}
+
+.section-title:hover i {
+  color: white;
+}
+
+/* Botones */
+.section-container-button button,
+.container-logout button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  background-color: #ff8036;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: background-color 0.3s, transform 0.2s, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.home-menu:hover .section-container-button button,
+.home-menu:hover .container-logout button {
+  opacity: 1;
+  visibility: visible;
+}
+
+.section-container-button button:hover,
+.container-logout button:hover {
+  background-color: #ffad4f;
+  transform: scale(1.05);
+}
+
+.section-container-button button {
+  width: 80%;
+}
+
+.container-logout {
+  margin-top: auto;
+  padding: 15px;
+  text-align: center;
+}
+
+.section-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 30px;
+  display: none;
+}
+
+.menu-section:hover .section-list {
+  display: block;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #cfcfcf;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.course-icon {
+  font-size: 1rem;
+  color: #7f8c8d;
+  transition: color 0.3s ease;
+  width: 20%;
+}
+
+.course-title {
+  color: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.course-item:hover {
+  background-color: #002d4f;
+  color: white;
+}
+
+.course-item:hover .course-icon {
+  color: white;
+}
+
+.home-menu:hover .course-title {
+  opacity: 1;
+  visibility: visible;
+}

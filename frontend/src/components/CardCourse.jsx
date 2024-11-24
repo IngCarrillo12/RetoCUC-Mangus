@@ -1,6 +1,7 @@
-import React from 'react'
-import '../style/cardCourse.css'
-export const CardCourse = () => {
+import React from 'react';
+import '../style/cardCourse.css';
+
+export const CardCourse = ({ title, description, progress }) => {
   return (
     <div className="card">
       <div className="card-wrapper">
@@ -18,21 +19,18 @@ export const CardCourse = () => {
           </g>
         </svg>
       </div>
-      <div className='card-img'>
-        <img src="https://img.freepik.com/vector-gratis/concepto-tutoriales-linea_52683-37480.jpg" alt="" />
+      <div className="card-img">
+        <img
+          src="https://img.freepik.com/vector-gratis/concepto-tutoriales-linea_52683-37480.jpg"
+          alt={title}
+        />
       </div>
- 
-    <div className="card-title">Web Design templates Selection</div>
-    <div className="card-subtitle">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elitsed do eiusmod.
+      <div className="card-title">{title}</div>
+      <div className="card-subtitle">{description}</div>
+      <div className="card-progress">
+        <progress value={progress} max="100"></progress>
+        <div className="progress-text">{progress}% completed</div>
+      </div>
     </div>
-    <div className="card-indicator">
-      <span className="card-indicator-amount">135</span> Projects /{" "}
-      <span className="card-indicator-percentage">75%</span>
-    </div>
-    <div className="card-progress">
-      <progress value="75" max="100"></progress>
-    </div>
-  </div>
-  )
-}
+  );
+};

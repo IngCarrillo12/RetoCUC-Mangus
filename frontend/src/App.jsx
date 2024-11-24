@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import FormCreate from './components/FormCreate.jsx';
 import { CourseDetail } from './pages/CourseDetail.jsx';
 import CommentSection from './components/CommentSection .jsx';
+import { SearchBar } from './components/SearchBar.jsx';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <Route path="/register" element={<Register />} />
     <Route path="/formcreate" element={<FormCreate />} />
     <Route path="/commentsection" element={<CommentSection />} />
+    <Route path="/searchbar" element={<SearchBar />} />
   </Routes>
   </>
   )

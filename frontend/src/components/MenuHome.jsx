@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/menuHome.css';
 
-export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario }) => {
+export const MenuHome = ({ nameCourse, setCourses, setDashboard, setFormulario, courseList }) => {
   return (
     <div className="home-menu">
       <h3 className="menu-title">
@@ -15,7 +15,7 @@ export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario })
             onClick={() => {
               setCourses(false);
               setDashboard(true);
-              setFormulario(false)
+              setFormulario(false);
             }}
           >
             <i className="fas fa-tachometer-alt"></i>
@@ -30,28 +30,34 @@ export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario })
           onClick={() => {
             setCourses(true);
             setDashboard(false);
-            setFormulario(false)
+            setFormulario(false);
           }}
         >
           <i className="fas fa-book"></i>
           <span>Courses</span>
-        </div>
+        </div>        
 
         <ul className="section-list">
-          <li>Course</li>
-          <li>Course</li>
-          <li>Course</li>
-          <li>Course</li>
-          <li>Course</li>
-          
+          {courseList.map((course) => (
+            <li key={course.id} className="course-item">
+              <i className="fas fa-book course-icon"></i>
+              <span className="course-title">{course.title}</span>
+            </li>
+          ))}
           <div className="section-container-button">
-            <button onClick={()=>{setFormulario(true); setDashboard(false); setCourses(false)}}>
+            <button
+              onClick={() => {
+                setFormulario(true);
+                setDashboard(false);
+                setCourses(false);
+              }}
+            >
               <i className="fas fa-plus"></i>
               <span>Create Course</span>
             </button>
           </div>
-
         </ul>
+
       </section>
 
       <section className="menu-section">
@@ -74,5 +80,3 @@ export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario })
     </div>
   );
 };
-
-

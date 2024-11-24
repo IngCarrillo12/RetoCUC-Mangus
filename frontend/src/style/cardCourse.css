@@ -40,23 +40,7 @@
     font-weight: 500;
     font-size: .8rem;
   }
-  
-  .card-progress progress {
-    width: 100%;
-    height: 4px;
-    border-radius: 2rem;
-  }
-  
-  .card-progress progress::-webkit-progress-bar {
-    background-color: #00000030;
-    border-radius: 100px;
-  }
-  
-  .card-progress progress::-webkit-progress-value {
-    background-color: var(-main-color);
-    border-radius: 100px;
-  }
-
+ 
   .content-courses {
     margin: 20px;
     padding: 10px;
@@ -96,6 +80,37 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  .card-progress {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .card-progress progress {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+  }
+  
+  .card-progress progress::-webkit-progress-bar {
+    background-color: #e0e0e0;
+  }
+  
+  .card-progress progress::-webkit-progress-value {
+    background-color: #007bff; 
+  }
+  
+  .card-progress progress::-moz-progress-bar {
+    background-color: #007bff;
+  }
+  
+  .progress-text {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #182aca;
+  }
+
   @media (max-width: 768px) {
     .courses-grid {
       grid-template-columns: repeat(2, 1fr);
