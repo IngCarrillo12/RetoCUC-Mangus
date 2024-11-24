@@ -1,99 +1,148 @@
-.home-menu{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background-color: #004AAD;
+/* Contenedor principal */
+.home-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Tamaño inicial cerrado */
+    height: 100%;
+    background-color: #094293;
     color: white;
-    height: 100vh;
-    width: 40%;
-    max-height: 1200px;
-    max-width: 300px;
-}
-.menu-title{
-    font-size: 2rem;
-    padding: 2rem .5rem;  
-    border-bottom: 1px solid white;
-}
-.menu-dasboard{
-    padding: 1.5rem 1rem ;
-    border-bottom: 1px solid white;
-    width: 80%;
-}
-.menu-subtitle{
-    font-size: 1.4rem;
-    font-weight: bold;
-    padding: .5rem .2rem;
-    margin: 2rem 0;
-    cursor: pointer;
-    transition: linear all 300ms;
-}
-.menu-subtitle:hover{
-    font-weight: 800;
-}
-.menu-section{
+    transition: width 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    gap: .5rem;
-    margin: .5rem 0;
-}
-.section-title{
-    padding: .5rem .5rem .5rem 1.2rem;
-    font-size: 1.4rem;
+    overflow: hidden;
+  }
+  
+  .home-menu:hover {
+    width: 220px; /* Tamaño expandido */
+  }
+  
+  /* Título del menú */
+  .menu-title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.5rem;
     font-weight: bold;
-    width: 70%;
-    border-bottom: 1px solid white;
-    cursor: pointer;
-    transition: linear all 300ms;
-}
-.section-title:hover{
-    font-weight: 800;
-}
-.section-list{
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 0; /* Oculto inicialmente */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    width: 200px;
+  }
+  
+  .home-menu:hover .menu-title {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Secciones del menú */
+  .menu-section {
+    margin: 10px 0;
+    padding: 0 10px;
+  }
+  
+  /* Íconos y texto */
+  .section-title {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: .2rem .5rem .5rem 2rem;
-    list-style: none;
-    
-}
-.section-list li{
-    font-size: 1rem;
-    cursor: pointer;
-    transition: linear all 300ms;
-}
-.section-list li:hover{
-    font-weight: 700;
-}
-.section-container-button{
-    display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: flex-start; /* Alineación de texto */
+    gap: 10px; /* Reducido para menor espacio */
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+  }
+  
+  .section-title i {
+    display: flex;
+    align-items: center; /* Centra el ícono verticalmente */
+    justify-content: center; /* Centra el ícono horizontalmente */
+    font-size: 1.3rem;
+    color: white;
+    transition: color 0.3s ease;
+    width: 30px; /* Espacio fijo para íconos */
+    text-align: center;
+  }
+  
+  .section-title span {
+    opacity: 0; /* Oculto inicialmente */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  /* Mostrar texto al hacer hover */
+  .home-menu:hover .section-title span {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Hover en las secciones */
+  .section-title:hover {
+    background-color: #1abc9c;
+    color: white;
+  }
+  
+  .section-title:hover i {
+    color: white;
+  }
+  
+  /* Botones */
+  .section-container-button button,
+  .container-logout button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Ícono y texto alineados a la izquierda */
+    gap: 10px;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
     width: 100%;
-}
-.section-container-button button{
-   width:80%;
-   background-color: transparent;
-   border: 1px solid white;
-   color: white;
-   transition: linear all 300ms;
-}
-.section-container-button button:hover{
-    color: #004AAD;
-    background-color: white
-}
-.container-logout{
-    border-top: 1px solid white;
-    margin-top: 1rem;
-    padding: 1rem;
-}
-.container-logout button{
-    width: 50%;
-    background-color: transparent;
-   border: 1px solid white;
-   color: white;
-    transition: linear all 300ms;
-}
-.container-logout button:hover{
-    color: #004AAD;
-    background-color: white
-}
+    border-radius: 8px;
+    font-size: 0.9rem;
+    opacity: 0; /* Ocultos inicialmente */
+    visibility: hidden;
+    transition: background-color 0.3s, transform 0.2s, opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .home-menu:hover .section-container-button button,
+  .home-menu:hover .container-logout button {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .section-container-button button:hover,
+  .container-logout button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+  /* Botones Create*/
+  .section-container-button button {
+    width: 80%;
+  }
+
+  .container-logout {
+    margin-top: auto;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  /* Lista desplegable */
+  .section-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 30px;
+    display: none;
+  }
+  
+  .menu-section:hover .section-list {
+    display: block;
+  }
+  

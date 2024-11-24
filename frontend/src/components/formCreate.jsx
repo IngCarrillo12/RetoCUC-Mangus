@@ -1,23 +1,65 @@
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import "../style/formCreate.css";
 
 const FormCreate = () => {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      nombreCurso: '',
+      categoria: '',
+      autor: '',
+      duracion: '',
+      fechaCreacion: '',
+      programas: '',
+      presentacionLarga: '',
+      presentacionCorta: '',
+      resultadosAprendizaje: '',
+      descripcionImagen: '',
+      storytellingProblema: '',
+      storytellingSolucion: '',
+      storytellingFinal: '',
+      palabrasClave: '',
+      publicoObjetivo: '',
+      units: []
+    }
+  });
+
+  const { fields: unitFields, append: addUnit, remove: removeUnit } = useFieldArray({
+    control,
+    name: "units",
+  });
+
+  const [lessonFields, setLessonFields] = useState({}); // { unitIndex: [{ id, title, resource }] }
+
+  const addLesson = (unitIndex) => {
+    setLessonFields((prev) => ({
+      ...prev,
+      [unitIndex]: [...(prev[unitIndex] || []), { title: "", resource: "" }],
+    }));
+  };
+
+  const removeLesson = (unitIndex, lessonIndex) => {
+    setLessonFields((prev) => {
+      const updated = { ...prev };
+      updated[unitIndex].splice(lessonIndex, 1);
+      return updated;
+    });
+  };
 
   const onSubmit = (data) => {
-    console.log(data);
-    alert('Formulario enviado con éxito');
+    console.log("Form Data:", data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-      
-      <div className="heading">Plan de Curso (Metodologías Ágiles)</div>      
+      <div className="heading">Plan de Curso (Metodologías Ágiles)</div>
 
+      {/* Campos del Curso */}
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="nombreCurso">Nombre del Curso/Asignatura</label>
@@ -47,7 +89,7 @@ const FormCreate = () => {
             {...register('autor', { required: 'Este campo es obligatorio' })}
           />
           {errors.autor && <span className="error">{errors.autor.message}</span>}
-        </div>       
+        </div>
 
         <div className="form-group">
           <label htmlFor="duracion">Duración</label>
@@ -77,7 +119,7 @@ const FormCreate = () => {
             {...register('programas', { required: 'Este campo es obligatorio' })}
           />
           {errors.programas && <span className="error">{errors.programas.message}</span>}
-        </div>      
+        </div>
 
         <div className="form-group">
           <label htmlFor="presentacionLarga">Presentación Larga del Curso</label>
@@ -85,7 +127,7 @@ const FormCreate = () => {
             id="presentacionLarga"
             type="text"
             {...register('presentacionLarga', { required: 'Este campo es obligatorio' })}
-          ></input>
+          />
           {errors.presentacionLarga && <span className="error">{errors.presentacionLarga.message}</span>}
         </div>
 
@@ -165,18 +207,87 @@ const FormCreate = () => {
             id="publicoObjetivo"
             type="text"
             {...register('publicoObjetivo', { required: 'Este campo es obligatorio' })}
-          ></input>
+          />
           {errors.publicoObjetivo && <span className="error">{errors.publicoObjetivo.message}</span>}
         </div>
       </div>
-      
-      <div className="form-row">
 
-      </div>
+      {/* Unidades y Lecciones */}
+      <h2 className="h">Unidades</h2>
+      {unitFields.map((unit, unitIndex) => (
+        <div key={unit.id} className='form-unit'>
+          <h3 className="h" >Unidad {unitIndex + 1}</h3>
+          <div className="form-group">
+            <div>
+              <label>Título de la Unidad:</label>
+              <input
+                {...register(`units[${unitIndex}].title`, {   required: "Título de la unidad es   obligatorio" })}
+              />
+            </div>
+            <div>
+              <label>Descripción de la Unidad:</label>
+              <textarea {...register(`units[${unitIndex}].  description`)} />
+            </div>
+          </div>         
+
+          <h4 className="h">Lecciones</h4>
+          {(lessonFields[unitIndex] || []).map((lesson, lessonIndex) => (
+            <div key={lessonIndex} className="form-group">
+              <div>
+                <label>Título de la Lección:</label>
+                <input
+                  type="text"
+                  value={lesson.title}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].title = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div>
+                <label>Recurso:</label>
+                <input
+                  type="text"
+                  value={lesson.resource}
+                  onChange={(e) => {
+                    const updatedLessons = [...lessonFields[unitIndex]];
+                    updatedLessons[lessonIndex].resource = e.target.value;
+                    setLessonFields((prev) => ({
+                      ...prev,
+                      [unitIndex]: updatedLessons,
+                    }));
+                  }}
+                />
+              </div>
+              <div className="button-container">
+                <button type="button"  className="btn-lesson" onClick={() => removeLesson(unitIndex, lessonIndex)}> Eliminar lección </button>
+              </div>
+            </div>
+          ))}
+
+          <div className="button-container">
+            <button type="button"  className="btn-lesson" onClick={() => addLesson(unitIndex)}>Añadir Lección</button>
+          </div>
+
+          <div className="button-container">
+              <button type="button"  className="btn-unit" onClick={() => removeUnit(unitIndex)}>Eliminar Unidad</button>
+          </div>          
+        </div>
+      ))}
 
       <div className="button-container">
-        <button type="submit" className="btn-submit">Iniciar Estructura del Curso</button>
+      <button type="button"  className="btn-unit" onClick={() => addUnit({})}>Añadir Unidad</button>
       </div>      
+
+      {/* Botón de Enviar */}
+      <div className="button-container">
+        <button type="submit"  className="btn-submit">Guardar Curso</button>
+      </div>
+      
     </form>
   );
 };

@@ -4,15 +4,18 @@ import { Header } from "../components/header.jsx";
 import { CardCourse } from '../components/CardCourse.jsx'
 import { GraphicTort } from '../components/GraphicTort.jsx'
 import { GraphicBar } from '../components/GraphicBar.jsx'
-
 import { MenuHome } from "../components/MenuHome.jsx";
+import FormCreate from '../components/FormCreate.jsx';
+
 export const Home= () => {
  
   const [Courses, setCourses] = useState(false)
   const [Dashboard, setDashboard] = useState(true)
+  const [Formulario, setFormulario] = useState(false)
+
   return (
       <div className="container-home">
-       <MenuHome  setCourses={setCourses} StateCourses={Courses} setDashboard={setDashboard} Dashboard={Dashboard}/>
+       <MenuHome  setCourses={setCourses} setDashboard={setDashboard} setFormulario={setFormulario}/>
         <div className="home-content">
           <Header/>
           <div className="content-info">
@@ -28,9 +31,7 @@ export const Home= () => {
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae pariatur voluptatibus maiores, reprehenderit neque qui atque optio itaque excepturi molestias dignissimos ea quas, placeat doloribus aspernatur obcaecati sunt consectetur facere.</p>
               </div>
                 :''
-              }
-             
-       
+              }           
            
             {
               Courses?
@@ -47,6 +48,12 @@ export const Home= () => {
                 
               </div>
             </div>
+              :''
+            }
+
+            {
+              Formulario?
+              <FormCreate/>
               :''
             }
             
