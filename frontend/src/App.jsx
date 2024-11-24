@@ -7,6 +7,9 @@ import {Home} from './pages/Home.jsx'
 import { Routes, Route } from "react-router-dom";
 import FormCreate from './components/FormCreate.jsx';
 
+import { CourseDetail } from './pages/CourseDetail.jsx';
+
+
 function App() {
   //const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   //console.log(isAuthenticated)
@@ -15,13 +18,14 @@ function App() {
 
   return (
     <>
-    {/* <Header/> */}
-    <Routes>    
-      <Route path="/home" element={<Home />}/>
-      <Route index path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/formcreate" element={<FormCreate />} />
-    </Routes>
+    {/* <Header/> */}\
+    <Routes>
+    <Route path='/' element={<CourseDetail/>}/>
+    <Route path="/home" element={<Home />}/>
+    <Route index path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+    <Route path="/formcreate" element={<FormCreate />} />
+  </Routes>
   </>
   )
 }
