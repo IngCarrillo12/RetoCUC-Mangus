@@ -14,6 +14,7 @@ import {Mosaic} from 'react-loading-indicators'
 import BarChartExample from '../components/GraphicResource.jsx';
 import { useAuthStore } from "../store/AuthStore.jsx"; // Importamos el store para obtener el usuario
 import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
+import {TitleTyping} from '../components/TitleTyping.jsx'
 export const Home= () => {
   const { user, logout } = useAuthStore(); // Obtenemos el usuario autenticado y la función logout
   const { loadCourses, loading, error } = useCourseStore() 
@@ -27,22 +28,11 @@ export const Home= () => {
   const navigate = useNavigate();
 
 // Componente TitleTyping dinámico
-const TitleTyping = ({ text }) => {
-  const textRef = React.useRef(null);
 
-  return <h1 className="title-typing" ref={textRef}>{text}</h1>;
-};
 useEffect(() => {
   loadCourses('1')
-  const element = textRef.current;
-  const textWidth = element.scrollWidth; // Obtén el ancho del texto
-  const animationDuration = `${text.length / 10}s`; // Calcula la duración basada en el texto
-
-  element.style.animation = `typing ${animationDuration} steps(${text.length}, end) forwards, blink 0.75s step-end infinite`;
-  element.style.setProperty('--text-width', `${textWidth}px`);
-}, [text]);
+}, []);
   
-   // Usamos useNavigate para redirigir al login
 
   const courseList = [
     { id: 1, title: "Web Design templates", description: "Learn web design.", progress: 75 },
@@ -89,6 +79,10 @@ useEffect(() => {
           <div className="content-info">                      
               {
                 Dashboard && (
+                  <>
+                    <div>
+                      <TitleTyping text={`Welcome, ${user?.nombre || 'Guest'}`}/>
+                    </div>
                   <div className="dashboard">
                     <div className="dashboard-left">
                       <div className="dashboard-graphics">
@@ -99,18 +93,11 @@ useEffect(() => {
                           <GraphicBar />
                         </div>                  
                       </div>
-                    </div>
-                    <div>
-                      <GraphicBar />
-                    </div>
-                    <div>
+                      <div>
                       <BarChartExample />
                     </div>
-                  </div>
-                     )
-                    }   
-                      {Courses && !ViewCourseDetail && (
-                <div className="dashboard-right">
+                    </div>
+                    <div className="dashboard-right">
                   <div className="profile-section">
                     <img
                       src="https://via.placeholder.com/100"
@@ -149,9 +136,14 @@ useEffect(() => {
                     Logout
                   </button>
                 </div>
-          )}
+                  </div>
+                  
+                  </>
+                     )
+                    }   
 
           {Courses && (
+            
             <div className="content-courses">
               <div className="courses-header">
                 <span className="courses-header-title">Courses</span>

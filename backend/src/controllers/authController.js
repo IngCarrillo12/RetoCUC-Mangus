@@ -35,7 +35,6 @@ export const register = async (req, res) => {
 // Login de usuario
 export const login = async (req, res) => {
     const { email, password } = req.body;
-
     try {
         const user = await findByEmail(email);
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
