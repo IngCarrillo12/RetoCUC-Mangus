@@ -1,17 +1,33 @@
-.modal{
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
 .container-CourseDetail{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 50%;
+    align-items: center;
+    width: 100%;
 }
-.CourseDetail-stat{
+.courseDetail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 50%;
+    border: 1px solid violet;
+    padding: 1rem 2rem;
+}
+.courseDetail-header{
+    display: flex;
+    flex-direction: column;
+}
+.courseDetail-header h1{
+    padding: 1rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.courseDetail-header p{
+    font-size: 1.2rem;
+}
+.courseDetail-stat{
     display: flex;
     justify-content: space-around;
     align-content: center;
@@ -20,5 +36,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    list-style: none;
 
 }

@@ -5,9 +5,9 @@ import bcrypt from 'bcryptjs';
 
 // Registro de usuario
 export const register = async (req, res) => {
-    const { nombre, email, password, area } = req.body;
+    const { nombre, email, contrasena, area } = req.body;
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(contrasena, 10);
         const rol = 'docente'
         const userId = await createUser(nombre, email, hashedPassword, rol , area);
         const token = jwt.sign(

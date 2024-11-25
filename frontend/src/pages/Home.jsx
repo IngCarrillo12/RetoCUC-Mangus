@@ -1,5 +1,5 @@
 import '../style/home.css'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Header } from "../components/header.jsx";
 import { CardCourse } from '../components/CardCourse.jsx'
 import { GraphicTort } from '../components/GraphicTort.jsx'
@@ -7,14 +7,20 @@ import { GraphicBar } from '../components/GraphicBar.jsx'
 import { MenuHome } from "../components/MenuHome.jsx";
 import FormCreate from '../components/FormCreate.jsx';
 import { SearchBar } from "../components/SearchBar.jsx";
-
+import { useCourseStore } from '../store/CourseStore.jsx';
+import { CourseDetail } from '../components/CourseDetail.jsx';
+import {Mosaic} from 'react-loading-indicators'
 export const Home= () => {
+  const { loadCourses, loading, error } = useCourseStore() 
+  const courses = useCourseStore((state) => state.courses)
  
   const [Courses, setCourses] = useState(false)
   const [Dashboard, setDashboard] = useState(true)
   const [Formulario, setFormulario] = useState(false)
+  const [ViewCourseDetail, setViewCourseDetail] = useState(false)
+  const selectedCourseRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("")  
-
+  
   const courseList = [
     { id: 1, title: "Web Design templates", description: "Learn web design.", progress: 75 },
     { id: 2, title: "React Basics", description: "Understand React concepts.", progress: 40 },
@@ -24,33 +30,41 @@ export const Home= () => {
     { id: 6, title: "Responsive Web Design", description: "Create designs that adapt to all screen sizes.", progress: 80 },
   ];
   
-  <div className="courses-grid">
-    {courseList.map((course) => (
-      <CardCourse
-        key={course.id}
-        title={course.title}
-        description={course.description}
-        progress={course.progress}
-      />
-    ))}
-  </div>;  
-
-  const filteredCourses = courseList.filter((course) =>
-    course.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCourses = courses.filter((course) =>
+    course.titulo.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  {filteredCourses.map((course) => (
-    <CardCourse
-      key={course.id}
-      title={course.title}
-      description={course.description}
-      progress={course.progress || 0}
-    />
-  ))}  
-
+  useEffect(() => {
+    loadCourses('1')
+  }, [])
   return (
+    !loading?
       <div className="container-home">
-       <MenuHome  setCourses={setCourses} setDashboard={setDashboard} setFormulario={setFormulario} courseList={courseList}/>
+       <MenuHome courses={courses} OnClickButtonCreate={()=>{() => {
+                setFormulario(true);
+                setDashboard(false);
+                setCourses(false)
+                setViewCourseDetail(false);
+              }}} 
+              onClickDashboard={() => {
+                setCourses(false);
+                setDashboard(true);
+                setFormulario(false)
+                setViewCourseDetail(false);
+              }} 
+            onClickCourses={() => {
+            setCourses(true);
+            setDashboard(false);
+            setFormulario(false)
+            setViewCourseDetail(false);
+          }}
+          OnClickCourse={()=>{
+            setCourses(false);
+            setDashboard(false)
+            setFormulario(false)
+            setViewCourseDetail(!ViewCourseDetail)
+          }}
+          selectedCourseRef={selectedCourseRef}
+          courseList={courseList}/>
         <div className="home-content">
           <Header/>          
           <div className="content-info">                      
@@ -60,7 +74,7 @@ export const Home= () => {
                     <div className="dashboard-left">
                       <div className="dashboard-graphics">
                         <div>
-                          <GraphicTort />
+                          <GraphicTort courses={courses}/>
                         </div>
                         <div>
                           <GraphicBar />
@@ -97,8 +111,9 @@ export const Home= () => {
                   </div>
                 )
               }           
+      
            
-           {Courses && (
+           {Courses && !ViewCourseDetail && (
             <div className="content-courses">
               <div className="courses-header">
                 <span className="courses-header-title">Courses</span>
@@ -108,16 +123,27 @@ export const Home= () => {
               <div className="courses-grid">
                 {filteredCourses.map((course) => (
                   <CardCourse
+                  onClick={() => {
+                    selectedCourseRef.current = course;
+                    setViewCourseDetail(true);
+                    setCourses(false) 
+                  }}
                   key={course.id}
-                  title={course.title}
-                  description={course.description}
-                  progress={course.progress}
+                  title={course.titulo}
+                  description={course.descripcion_larga}
+                  estado={course.estado}
                 />
                 ))}
               </div>
             </div>
             )}
-
+            { ViewCourseDetail && selectedCourseRef.current &&(
+               <div className='container-CourseDetail'>
+               <CourseDetail course={selectedCourseRef.current}/>
+               </div>
+            ) 
+                   
+            }
             {
               Formulario?
               <FormCreate/>
@@ -127,6 +153,12 @@ export const Home= () => {
           </div>
         </div>
       </div>
+      
+      :
+      <div className='container-loading'>
+      <Mosaic color="#32cd32" size="large" text="Loading..." textColor="" />
+      </div>
+      
   );
 };
 

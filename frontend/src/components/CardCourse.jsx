@@ -1,9 +1,9 @@
 import React from 'react';
 import '../style/cardCourse.css';
-
-export const CardCourse = ({ title, description, progress }) => {
+import {Timeline} from '../components/TimeLine.jsx'
+export const CardCourse = ({ title, description, estado, onClick}) => {
   return (
-    <div className="card">
+    <div className="card" onClick={onClick}>
       <div className="card-wrapper">
         <svg
           fill="none"
@@ -28,8 +28,7 @@ export const CardCourse = ({ title, description, progress }) => {
       <div className="card-title">{title}</div>
       <div className="card-subtitle">{description}</div>
       <div className="card-progress">
-        <progress value={progress} max="100"></progress>
-        <div className="progress-text">{progress}% completed</div>
+        <Timeline estado={estado}/>
       </div>
     </div>
   );

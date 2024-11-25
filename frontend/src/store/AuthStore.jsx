@@ -39,7 +39,6 @@ export const useAuthStore = create(
       
 
       Register: async (values) => {
-        console.log("Registro iniciado", values);
         set({ loading: true, error: null });
         try {
             // Obtener los datos de registro

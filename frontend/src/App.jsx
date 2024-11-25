@@ -6,9 +6,7 @@ import {Home} from './pages/Home.jsx'
 //import { useAuthStore } from './store/AuthStore.jsx';
 import { Routes, Route } from "react-router-dom";
 import FormCreate from './components/FormCreate.jsx';
-import { CourseDetail } from './pages/CourseDetail.jsx';
 import CommentSection from './components/CommentSection .jsx';
-import { SearchBar } from './components/SearchBar.jsx';
 
 
 function App() {
@@ -19,15 +17,13 @@ function App() {
 
   return (
     <>
-    {/* <Header/> */}\
+    {/* <Header/> */}
     <Routes>
-    <Route path='/' element={<CourseDetail/>}/>
     <Route path="/home" element={<Home />}/>
     <Route index path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/formcreate" element={<FormCreate />} />
     <Route path="/commentsection" element={<CommentSection />} />
-    <Route path="/searchbar" element={<SearchBar />} />
   </Routes>
   </>
   )

@@ -9,9 +9,7 @@ export const fetchLogin = async (values)=>{
     
         console.log(`error ${error}`)
         return error
-    } 
-
-    
+    }   
 }
 
 export const fetchRegister = async (values)=>{

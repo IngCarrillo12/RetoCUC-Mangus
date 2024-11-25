@@ -200,3 +200,13 @@
     margin-left: 200px;
     width: calc(100% - 200px);
   }
+  .container-loading{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .container-loading span{
+    left: 45% !important;
+  }
