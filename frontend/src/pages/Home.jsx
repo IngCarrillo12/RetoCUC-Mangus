@@ -9,6 +9,7 @@ import FormCreate from '../components/FormCreate.jsx';
 import { SearchBar } from "../components/SearchBar.jsx";
 import BarChartExample from '../components/GraphicResource.jsx';
 import { useAuthStore } from "../store/AuthStore.jsx"; // Importamos el store para obtener el usuario
+import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
 
 // Componente TitleTyping dinámico
 const TitleTyping = ({ text }) => {
@@ -27,11 +28,12 @@ const TitleTyping = ({ text }) => {
 };
 
 export const Home = () => {
-  const { user } = useAuthStore(); // Obtenemos el usuario autenticado
+  const { user, logout } = useAuthStore(); // Obtenemos el usuario autenticado y la función logout
   const [Courses, setCourses] = useState(false);
   const [Dashboard, setDashboard] = useState(true);
   const [Formulario, setFormulario] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");  
+  const navigate = useNavigate(); // Usamos useNavigate para redirigir al login
 
   const courseList = [
     { id: 1, title: "Web Design templates", description: "Learn web design.", progress: 75 },
@@ -79,7 +81,7 @@ export const Home = () => {
                       alt="Profile"
                       className="profile-image"
                     />
-                    <h2 className="profile-name">{user?.nombre || "Juan Pérez"}</h2>
+                    <h2 className="profile-name">{user?.nombre || "Guest"}</h2>
                     <p className="profile-job">{user?.area || "Professor - Computer Science"}</p>
                   </div>
                   <div className="active-courses">
@@ -100,6 +102,16 @@ export const Home = () => {
                       <li>Prepare slides for JavaScript lecture</li>
                     </ul>
                   </div>
+
+                  <button
+                    className="button-logout"
+                    onClick={async () => {
+                      await logout();  // Llamamos a la función logout desde el store
+                      navigate("/login"); // Redirigimos a la página de login
+                    }}
+                  >
+                    Logout
+                  </button>
                 </div>
               </div>
             </div>
