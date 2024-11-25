@@ -1,5 +1,6 @@
 .h {
   color: black;
+  margin-top: 20px;
 }
 
 .form-container {
@@ -16,7 +17,6 @@
   gap: 20px;
   box-sizing: border-box;
 }
-
 
 .form-group {
   display: flex;
@@ -41,7 +41,7 @@
   transition: all 0.3s ease;
   color: #333;
   box-sizing: border-box;
-  border: 2px solid #12B1D1;
+  border: 2px solid #12B1D1 !important;
   color-scheme: black;
 }
 
@@ -71,10 +71,10 @@
 }
 
 .heading {
-  text-align: center;
+  text-align: left;
   font-weight: 900;
   font-size: 30px;
-  color: rgb(16, 137, 211);
+  color: rgb(0 0 0);
 }
 
 .form-row {
@@ -109,12 +109,11 @@
   box-shadow: rgba(133, 189, 215, 0.878) 0px 15px 10px -10px;
 }
 
-/* Button Unit */
 .btn-unit {
   display: block;
   width: 100%;
   font-weight: bold;
-  background: linear-gradient(45deg, #0575E6 0%, #021B79 100%);  
+  background: linear-gradient(45deg, #0575E6 0%, #021B79 100%);
   color: white;
   padding: 15px;
   margin: 20px auto;
@@ -136,12 +135,11 @@
   box-shadow: rgba(133, 189, 215, 0.878) 0px 15px 10px -10px;
 }
 
-/* Button Lesson */
 .btn-lesson {
   display: block;
   width: 100%;
   font-weight: bold;
-  background: linear-gradient(45deg, #2193b0 0%, #6dd5ed 100%);
+  background: linear-gradient(45deg, #4235f0 0%, #3e51ff 100%);
   color: white;
   padding: 15px;
   margin: 20px auto;
@@ -163,6 +161,57 @@
   box-shadow: rgba(133, 189, 215, 0.878) 0px 15px 10px -10px;
 }
 
+.btn-resource {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  background: linear-gradient(45deg, #22058d 0%, #4136da 100%);
+  color: white;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: rgba(133, 189, 215, 0.878) 0px 20px 10px -15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-resource:hover {
+  transform: scale(1.03);
+  box-shadow: rgba(133, 189, 215, 0.878) 0px 23px 10px -20px;
+}
+
+.btn-resource:active {
+  transform: scale(0.95);
+  box-shadow: rgba(133, 189, 215, 0.878) 0px 15px 10px -10px;
+}
+
+.btn-cancel {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  background: linear-gradient(45deg, #f32004 0%, #ac0b00 100%);
+  color: white;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: rgba(133, 189, 215, 0.878) 0px 20px 10px -15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  transform: scale(1.03);
+  box-shadow: rgba(133, 189, 215, 0.878) 0px 23px 10px -20px;
+}
+
+.btn-cancel:active {
+  transform: scale(0.95);
+  box-shadow: rgba(133, 189, 215, 0.878) 0px 15px 10px -10px;
+}
 
 .agreement {
   display: block;
@@ -178,4 +227,22 @@
 
 .button-container {
   text-align: center;
+}
+
+.listaRecursos {
+  background: white;
+  border: 2px solid transparent;
+  padding: 15px 20px;
+  border-radius: 20px;
+  margin-top: 5px;
+  box-shadow: #cff0ff 0px 10px 10px -5px;
+  transition: all 0.3s ease;
+  color: #333;
+  box-sizing: border-box;
+  border: 2px solid #12B1D1 !important;
+  color-scheme: black;
+}
+
+label {
+  margin-top: 15px;
 }

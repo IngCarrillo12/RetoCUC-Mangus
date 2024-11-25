@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import React from "react";
+import { useForm, useFieldArray } from "react-hook-form";
 import "../style/formCreate.css";
 
 const FormCreate = () => {
@@ -10,47 +10,102 @@ const FormCreate = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      nombreCurso: '',
-      categoria: '',
-      autor: '',
-      duracion: '',
-      fechaCreacion: '',
-      programas: '',
-      presentacionLarga: '',
-      presentacionCorta: '',
-      resultadosAprendizaje: '',
-      descripcionImagen: '',
-      storytellingProblema: '',
-      storytellingSolucion: '',
-      storytellingFinal: '',
-      palabrasClave: '',
-      publicoObjetivo: '',
-      units: []
-    }
+      nombreCurso: "",
+      categoria: "",
+      autor: "",
+      duracion: "",
+      fechaCreacion: "",
+      programas: "",
+      presentacionLarga: "",
+      presentacionCorta: "",
+      resultadosAprendizaje: "",
+      descripcionImagen: "",
+      storytellingProblema: "",
+      storytellingSolucion: "",
+      storytellingFinal: "",
+      palabrasClave: "",
+      publicoObjetivo: "",
+      units: [],
+    },
   });
 
-  const { fields: unitFields, append: addUnit, remove: removeUnit } = useFieldArray({
+  const {
+    fields: unitFields,
+    append: addUnit,
+    remove: removeUnit,
+    update: updateUnit,
+  } = useFieldArray({
     control,
     name: "units",
   });
 
-  const [lessonFields, setLessonFields] = useState({}); // { unitIndex: [{ id, title, resource }] }
+  const addLessonToUnit = (unitIndex) => {
+    const currentLessons = unitFields[unitIndex]?.lessons || [];
+    const newLesson = {
+      tituloleccion: "",
+      tematica: "",
+      resultadoAprendizajeLeccion: "",
+      tipoLeccion: "",
+      caracteristicaLeccion: [],
+      propositoStorytelling: "",
+      duracion: "",
+      semanaSugerida: "",
+    };
 
-  const addLesson = (unitIndex) => {
-    setLessonFields((prev) => ({
-      ...prev,
-      [unitIndex]: [...(prev[unitIndex] || []), { title: "", resource: "" }],
-    }));
+    const updatedUnit = {
+      ...unitFields[unitIndex],
+      lessons: [...currentLessons, newLesson],
+    };
+    updateUnit(unitIndex, updatedUnit);
   };
 
-  const removeLesson = (unitIndex, lessonIndex) => {
-    setLessonFields((prev) => {
-      const updated = { ...prev };
-      updated[unitIndex].splice(lessonIndex, 1);
-      return updated;
-    });
+  const removeLessonFromUnit = (unitIndex, lessonIndex) => {
+    const currentLessons = unitFields[unitIndex]?.lessons || [];
+    if (currentLessons.length > lessonIndex) {
+      const updatedLessons = currentLessons.filter((_, i) => i !== lessonIndex);
+      const updatedUnit = {
+        ...unitFields[unitIndex],
+        lessons: updatedLessons,
+      };
+      updateUnit(unitIndex, updatedUnit);
+    }
   };
 
+  const addCharacteristic = (unitIndex, lessonIndex) => {
+    const lessons = unitFields[unitIndex]?.lessons || [];
+    const lesson = lessons[lessonIndex];
+    if (lesson) {
+      const updatedLesson = {
+        ...lesson,
+        caracteristicaLeccion: [
+          ...lesson.caracteristicaLeccion,
+          { tipo: "", nombre: "", url: "" },
+        ],
+      };
+      const updatedLessons = [...lessons];
+      updatedLessons[lessonIndex] = updatedLesson;
+      const updatedUnit = { ...unitFields[unitIndex], lessons: updatedLessons };
+      updateUnit(unitIndex, updatedUnit);
+    }
+  };
+
+  const removeCharacteristic = (unitIndex, lessonIndex, characteristicIndex) => {
+    const lessons = unitFields[unitIndex]?.lessons || [];
+    const lesson = lessons[lessonIndex];
+    if (lesson) {
+      const updatedCharacteristics = lesson.caracteristicaLeccion.filter(
+        (_, i) => i !== characteristicIndex
+      );
+      const updatedLesson = {
+        ...lesson,
+        caracteristicaLeccion: updatedCharacteristics,
+      };
+      const updatedLessons = [...lessons];
+      updatedLessons[lessonIndex] = updatedLesson;
+      const updatedUnit = { ...unitFields[unitIndex], lessons: updatedLessons };
+      updateUnit(unitIndex, updatedUnit);
+    }
+  };
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
@@ -58,16 +113,15 @@ const FormCreate = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-      <div className="heading">Plan de Curso (Metodologías Ágiles)</div>
+      <div className="heading">Creación del Plan de Curso</div>
 
-      {/* Campos del Curso */}
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="nombreCurso">Nombre del Curso/Asignatura</label>
           <input
             id="nombreCurso"
             type="text"
-            {...register('nombreCurso', { required: 'Este campo es obligatorio' })}
+            {...register('nombreCurso',)}
           />
           {errors.nombreCurso && <span className="error">{errors.nombreCurso.message}</span>}
         </div>
@@ -77,7 +131,7 @@ const FormCreate = () => {
           <input
             id="categoria"
             type="text"
-            {...register('categoria', { required: 'Este campo es obligatorio' })}
+            {...register('categoria',)}
           />
           {errors.categoria && <span className="error">{errors.categoria.message}</span>}
         </div>
@@ -87,7 +141,7 @@ const FormCreate = () => {
           <input
             id="autor"
             type="text"
-            {...register('autor', { required: 'Este campo es obligatorio' })}
+            {...register('autor',)}
           />
           {errors.autor && <span className="error">{errors.autor.message}</span>}
         </div>
@@ -97,7 +151,7 @@ const FormCreate = () => {
           <input
             id="duracion"
             type="text"
-            {...register('duracion', { required: 'Este campo es obligatorio' })}
+            {...register('duracion',)}
           />
           {errors.duracion && <span className="error">{errors.duracion.message}</span>}
         </div>
@@ -107,7 +161,7 @@ const FormCreate = () => {
           <input
             id="fechaCreacion"
             type="date"
-            {...register('fechaCreacion', { required: 'Este campo es obligatorio' })}
+            {...register('fechaCreacion',)}
           />
           {errors.fechaCreacion && <span className="error">{errors.fechaCreacion.message}</span>}
         </div>
@@ -117,7 +171,7 @@ const FormCreate = () => {
           <input
             id="programas"
             type="text"
-            {...register('programas', { required: 'Este campo es obligatorio' })}
+            {...register('programas',)}
           />
           {errors.programas && <span className="error">{errors.programas.message}</span>}
         </div>
@@ -127,7 +181,7 @@ const FormCreate = () => {
           <input
             id="presentacionLarga"
             type="text"
-            {...register('presentacionLarga', { required: 'Este campo es obligatorio' })}
+            {...register('presentacionLarga',)}
           />
           {errors.presentacionLarga && <span className="error">{errors.presentacionLarga.message}</span>}
         </div>
@@ -137,7 +191,7 @@ const FormCreate = () => {
           <input
             id="presentacionCorta"
             type="text"
-            {...register('presentacionCorta', { required: 'Este campo es obligatorio' })}
+            {...register('presentacionCorta',)}
           />
           {errors.presentacionCorta && <span className="error">{errors.presentacionCorta.message}</span>}
         </div>
@@ -147,7 +201,7 @@ const FormCreate = () => {
           <input
             id="resultadosAprendizaje"
             type="text"
-            {...register('resultadosAprendizaje', { required: 'Este campo es obligatorio' })}
+            {...register('resultadosAprendizaje',)}
           />
           {errors.resultadosAprendizaje && <span className="error">{errors.resultadosAprendizaje.message}</span>}
         </div>
@@ -157,7 +211,7 @@ const FormCreate = () => {
           <input
             id="descripcionImagen"
             type="url"
-            {...register('descripcionImagen', { required: 'Este campo es obligatorio' })}
+            {...register('descripcionImagen',)}
           />
           {errors.descripcionImagen && <span className="error">{errors.descripcionImagen.message}</span>}
         </div>
@@ -167,7 +221,7 @@ const FormCreate = () => {
           <input
             id="storytellingProblema"
             type="text"
-            {...register('storytellingProblema', { required: 'Este campo es obligatorio' })}
+            {...register('storytellingProblema',)}
           />
           {errors.storytellingProblema && <span className="error">{errors.storytellingProblema.message}</span>}
         </div>
@@ -177,7 +231,7 @@ const FormCreate = () => {
           <input
             id="storytellingSolucion"
             type="text"
-            {...register('storytellingSolucion', { required: 'Este campo es obligatorio' })}
+            {...register('storytellingSolucion',)}
           />
           {errors.storytellingSolucion && <span className="error">{errors.storytellingSolucion.message}</span>}
         </div>
@@ -187,7 +241,7 @@ const FormCreate = () => {
           <input
             id="storytellingFinal"
             type="text"
-            {...register('storytellingFinal', { required: 'Este campo es obligatorio' })}
+            {...register('storytellingFinal',)}
           />
           {errors.storytellingFinal && <span className="error">{errors.storytellingFinal.message}</span>}
         </div>
@@ -197,7 +251,7 @@ const FormCreate = () => {
           <input
             id="palabrasClave"
             type="text"
-            {...register('palabrasClave', { required: 'Este campo es obligatorio' })}
+            {...register('palabrasClave',)}
           />
           {errors.palabrasClave && <span className="error">{errors.palabrasClave.message}</span>}
         </div>
@@ -207,13 +261,12 @@ const FormCreate = () => {
           <input
             id="publicoObjetivo"
             type="text"
-            {...register('publicoObjetivo', { required: 'Este campo es obligatorio' })}
+            {...register('publicoObjetivo',)}
           />
           {errors.publicoObjetivo && <span className="error">{errors.publicoObjetivo.message}</span>}
         </div>
       </div>
 
-      {/* Unidades y Lecciones */}
       <h2 className="h">Unidades</h2>
       {unitFields.map((unit, unitIndex) => (
         <div key={unit.id} className='form-unit'>
@@ -222,167 +275,162 @@ const FormCreate = () => {
             <div>
               <label>Título de la Unidad:</label>
               <input
-                {...register(`units[${unitIndex}].title`, {   required: "Título de la unidad es   obligatorio" })}
+                id={`tituloUnidad-${unitIndex}`}
+                {...register(`units[${unitIndex}].title`, { required: "Título de la unidad es obligatorio" })}
               />
             </div>
             <div>
               <label>Descripción de la Unidad:</label>
-              <input {...register(`units[${unitIndex}].  description`)} />
+              <input
+                id={`descripcionUnidad-${unitIndex}`}
+                {...register(`units[${unitIndex}].description`)}
+              />
             </div>
-          </div>         
-
-          <br /><h4 className="h">Lecciones</h4><br />
-          {(lessonFields[unitIndex] || []).map((lesson, lessonIndex) => (
-            <div key={lessonIndex} className="form-group">
-              <div>
-              <h4 className="h">Lección {lessonIndex + 1}</h4>
-                <label>Nombre de la Lección:</label>
-                <input
-                  type="text"
-                  value={lesson.title}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].title = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Temáticas:</label>
-                <input
-                  value={lesson.topics}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].topics = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Resultados de Aprendizaje:</label>
-                <input
-                  value={lesson.learningOutcomes}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].learningOutcomes = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Tipo de Lección:</label>
-                <input
-                  type="text"
-                  value={lesson.lessonType}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].lessonType = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Características de la Lección:</label>
-                <input
-                  value={lesson.characteristics}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].characteristics = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Propósito y/o Storytelling:</label>
-                <input
-                  value={lesson.purpose}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].purpose = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Duración (minutos):</label>
-                <input
-                  type="number"
-                  value={lesson.duration}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].duration = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div>
-                <label>Semana Sugerida:</label>
-                <input
-                  type="number"
-                  value={lesson.suggestedWeek}
-                  onChange={(e) => {
-                    const updatedLessons = [...lessonFields[unitIndex]];
-                    updatedLessons[lessonIndex].suggestedWeek = e.target.value;
-                    setLessonFields((prev) => ({
-                      ...prev,
-                      [unitIndex]: updatedLessons,
-                    }));
-                  }}
-                />
-              </div>
-              <div className="button-container">
-                <button
-                  type="button"
-                  className="btn-lesson"
-                  onClick={() => removeLesson(unitIndex, lessonIndex)}
-                >
-                  Eliminar lección
-                </button>
-              </div>
-            </div>
-          ))}
-
-
-          <div className="button-container">
-            <button type="button"  className="btn-lesson" onClick={() => addLesson(unitIndex)}>Añadir Lección</button>
           </div>
 
-          <div className="button-container">
-              <button type="button"  className="btn-unit" onClick={() => removeUnit(unitIndex)}>Eliminar Unidad</button>
-          </div>          
+          <h3 className="h">Lecciones</h3>
+          {unit.lessons?.map((lesson, lessonIndex) => (
+            <div key={lessonIndex} className='form-lesson'>
+              <h3 className="h" >Leccion {lessonIndex + 1}</h3>
+              <div className="form-group">
+                <label>Título de la Lección:</label>
+                <input
+                  id={`tituloLeccion-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].tituloleccion`, { required: "Título de la lección es obligatorio" })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Tema:</label>
+                <input
+                  id={`tematicaLeccion-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].tematica`, { required: "Tema de la lección es obligatorio" })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Resultado de Aprendizaje:</label>
+                <input
+                  id={`resultadoAprendizajeLeccion-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].resultadoAprendizajeLeccion`, { required: "Resultado de aprendizaje es obligatorio" })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Tipo de Lección:</label>
+                <input
+                  id={`tipoLeccion-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].tipoLeccion`, { required: "Tipo de lección es obligatorio" })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Propósito del Storytelling:</label>
+                <input
+                  id={`propositoStorytelling-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].propositoStorytelling`, { required: "Propósito del storytelling es obligatorio" })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Duración:</label>
+                <input
+                  id={`duracionLeccion-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].duracion`, { required: "Duración de la lección es obligatoria" })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Semana Sugerida:</label>
+                <input
+                  id={`semanaSugerida-${unitIndex}-${lessonIndex}`}
+                  {...register(`units[${unitIndex}].lessons[${lessonIndex}].semanaSugerida`, { required: "Semana sugerida es obligatoria" })}
+                />
+              </div>
+
+              <h4 className="h">Características de la Lección</h4>
+              {lesson.caracteristicaLeccion?.map((char, charIndex) => (
+                <div className="form-group" key={charIndex}>
+                  <label>Tipo de Recurso</label>
+                  <select
+                    className="listaRecursos"
+                    {...register(`units[${unitIndex}].lessons[${lessonIndex}].caracteristicaLeccion[${charIndex}].tipo`)}
+                    onChange={(e) => {
+                      if (e.target.value === "Otros") {
+                        document.getElementById(`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`).style.display = 'block';
+                      } else {
+                        document.getElementById(`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`).style.display = 'none';
+                      }
+                    }}
+                  >
+                    <option value="OVA">OVA</option>
+                    <option value="Videos">Videos</option>
+                    <option value="Infografía">Infografía</option>
+                    <option value="Quices">Quices</option>
+                    <option value="Foro">Foro</option>
+                    <option value="Entregable">Entregable</option>
+                    <option value="Otros">Otros</option>
+                  </select>
+
+                  <div id={`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`} style={{ display: 'none' }}>
+                    <label>Especificar Tipo de Recurso</label>
+                    <input
+                      {...register(`units[${unitIndex}].lessons[${lessonIndex}].caracteristicaLeccion[${charIndex}].otroTipo`)}
+                    />
+                  </div>
+
+                  <label>Nombre de la Característica</label>
+                  <input
+                    {...register(`units[${unitIndex}].lessons[${lessonIndex}].caracteristicaLeccion[${charIndex}].nombre`)}
+                  />
+                  <label>URL</label>
+                  <input
+                    {...register(`units[${unitIndex}].lessons[${lessonIndex}].caracteristicaLeccion[${charIndex}].url`)}
+                  />
+
+                  <button
+                    className="btn-cancel"
+                    type="button"
+                    onClick={() =>
+                      removeCharacteristic(unitIndex, lessonIndex, charIndex)
+                    }
+                  >
+                    Eliminar Característica
+                  </button>
+                </div>
+              ))}
+              <button
+                className="btn-resource"
+                type="button"
+                onClick={() => addCharacteristic(unitIndex, lessonIndex)}
+              >
+                Añadir Característica
+              </button>
+
+              <button
+                className="btn-cancel"
+                type="button"
+                onClick={() => removeLessonFromUnit(unitIndex, lessonIndex)}
+              >
+                Eliminar Lección
+              </button>
+            </div>
+          ))}
+          <button className="btn-lesson" type="button" onClick={() => addLessonToUnit(unitIndex)}>
+            Añadir Lección
+          </button>
+
+          <button className="btn-cancel" type="button" onClick={() => removeUnit(unitIndex)}>
+            Eliminar Unidad
+          </button>
         </div>
       ))}
 
-      <div className="button-container">
-      <button type="button"  className="btn-unit" onClick={() => addUnit({})}>Añadir Unidad</button>
-      </div>      
+      <button className="btn-unit" type="button" onClick={() => addUnit({ title: "" })}>
+        Añadir Unidad
+      </button>
 
-      {/* Botón de Enviar */}
-      <div className="button-container">
-        <button type="submit"  className="btn-submit">Guardar Curso</button>
-      </div>
-      
+      <button className="btn-sumit" type="submit">Crear Curso</button>
     </form>
   );
 };
