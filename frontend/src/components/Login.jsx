@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import {useForm} from 'react-hook-form'
 import {useAuthStore} from '../store/AuthStore.jsx'
 import {useNavigate} from 'react-router-dom'
-import { fetchLogin } from '../api/AuthApi.jsx'
 import '../style/login.css'
 import logo from '../img/saly-11.png'
 

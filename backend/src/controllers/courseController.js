@@ -1,4 +1,4 @@
-import {createCourseModel, getCourseByIdModel, getCoursesByUserIdModel, updateCourseModel,deleteCourseModel, getCourseWithDetailsModel} from '../models/courseModel.js'
+import {createCourseModel, getCourseByIdModel, getCoursesByUserIdModel, updateCourseModel,deleteCourseModel, getCourseWithDetailsModel, getCoursesWithDetailsByUserIdModel} from '../models/courseModel.js'
 import {createUnitModel} from '../models/unitModel.js';
 import {createLessonModel} from '../models/lessonModel.js';
 import {createResourceModel} from '../models/resourceModel.js';
@@ -38,24 +38,40 @@ export const createGroup = async (req, res) => {
 };
 // Crear un nuevo curso
 export const createCourse = async (req, res) => {
-    const { titulo,
+    const {
+        titulo,
         categoria,
         autor,
         programa,
         descripcion_larga,
         descripcion_corta,
         resultados_aprendizaje,
-        duracion
+        duracion,
+        estado = "borrador"
     } = req.body;
-    const usuario_id = req.user.id;
+
+    const usuario_id = req.user.id; // Obtenido del token
 
     try {
-        const cursoId = await createCourseModel(titulo, categoria,autor,programa,descripcion_larga,descripcion_corta,resultados_aprendizaje,duracion, usuario_id);
+        const cursoId = await createCourseModel(
+            titulo,
+            categoria,
+            autor,
+            programa,
+            descripcion_larga,
+            descripcion_corta,
+            resultados_aprendizaje,
+            duracion,
+            estado, 
+            usuario_id
+        );
+
         res.status(201).json({ message: 'Curso creado con éxito', cursoId });
     } catch (error) {
         res.status(500).json({ message: 'Error al crear el curso', error });
     }
 };
+
 
 // Obtener un curso por ID
 export const getCourseById = async (req, res) => {
@@ -190,7 +206,19 @@ export const getCourseWithDetails = async (req, res) => {
         console.error('Error al obtener el curso con detalles:', error);
         res.status(500).json({ message: 'Error al obtener el curso con detalles', error });
     }
+}
+
+
+export const getCoursesWithDetailsByUserId = async (req, res) => {
+    const { usuario_id } = req.params;
+    try {
+        const cursos = await getCoursesWithDetailsByUserIdModel(usuario_id);
+        res.json(cursos);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los cursos con detalles', error });
+    }
 };
+
 
 
 

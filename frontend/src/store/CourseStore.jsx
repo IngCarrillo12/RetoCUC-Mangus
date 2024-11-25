@@ -1,10 +1,29 @@
 import { create } from "zustand";
+import { fetchLoadCourses} from "../api/CourseApi";
 
 export const useCourseStore = create((set, get) => ({
   courses: [],
+  loading:true,
+  error: null,
   currentCourse: null, 
 
-  // Agregar un curso
+  loadCourses: async(usuario_id) => {
+    set({ loading: true, error: null }); 
+    try {
+      const dataCourses =  await fetchLoadCourses(usuario_id)
+      set((state) => ({
+        ...state, 
+        courses: [...dataCourses],
+        loading: false, 
+        error: null, 
+      }));
+    } catch (error) {
+      
+      set({ loading: false, error: error.message || "Error al cargar cursos" });
+      console.error(error); 
+    }
+  },
+   
   addCourse: (course) =>
     set((state) => ({
       courses: [

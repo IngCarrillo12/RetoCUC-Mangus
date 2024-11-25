@@ -10,12 +10,13 @@ export const createCourseModel = async (curso) => {
         descripcion_corta,
         resultados_aprendizaje,
         duracion,
-        usuario_id, 
+        usuario_id,
+        estado = "borrador",
     } = curso;
 
     const [result] = await db.query(
         `INSERT INTO Cursos (titulo, categoria, programa, descripcion_larga, descripcion_corta, resultados_aprendizaje, duracion, usuario_id, estado, fecha_creacion) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'creado' , NOW())`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? , NOW())`,
         [
             
             titulo,
@@ -26,6 +27,7 @@ export const createCourseModel = async (curso) => {
             resultados_aprendizaje,
             duracion,
             usuario_id,
+            estado
         ]
     );
     return result.insertId; // Devuelve el ID del curso creado
@@ -139,5 +141,122 @@ export const getCourseWithDetailsModel = async (cursoId) => {
 
     return rows;
 };
+export const getCoursesWithDetailsByUserIdModel = async (usuario_id) => {
+    const [rows] = await db.query(
+        `
+        SELECT 
+            c.id AS curso_id,
+            c.titulo AS curso_titulo,
+            c.categoria AS curso_categoria,
+            c.programa AS curso_programa,
+            c.descripcion_larga AS curso_descripcion_larga,
+            c.descripcion_corta AS curso_descripcion_corta,
+            c.resultados_aprendizaje AS curso_resultados_aprendizaje,
+            c.duracion AS curso_duracion,
+            c.estado AS curso_estado,
+            c.fecha_creacion AS curso_fecha_creacion,
+            u.id AS unidad_id,
+            u.titulo AS unidad_titulo,
+            u.descripcion AS unidad_descripcion,
+            l.id AS leccion_id,
+            l.titulo AS leccion_titulo,
+            l.tematicas AS leccion_tematicas,
+            l.resultados_aprendizaje AS leccion_resultados_aprendizaje,
+            l.tipo AS leccion_tipo,
+            l.caracteristicas AS leccion_caracteristicas,
+            l.proposito AS leccion_proposito,
+            l.duracion AS leccion_duracion,
+            l.semana_sugerida AS leccion_semana_sugerida,
+            r.id AS recurso_id,
+            r.tipo AS recurso_tipo,
+            r.nombre AS recurso_nombre,
+            r.url AS recurso_url
+        FROM 
+            Cursos c
+        LEFT JOIN 
+            Unidades u ON c.id = u.curso_id
+        LEFT JOIN 
+            Lecciones l ON u.id = l.unidad_id
+        LEFT JOIN 
+            Recursos r ON l.id = r.leccion_id
+        WHERE 
+            c.usuario_id = ?
+        ORDER BY 
+            c.id, u.id, l.id, r.id
+        `,
+        [usuario_id]
+    );
+
+    // Reestructurar los datos para anidar la información de forma jerárquica
+    const cursosMap = new Map();
+
+    rows.forEach((row) => {
+        // Crear o actualizar el curso
+        if (!cursosMap.has(row.curso_id)) {
+            cursosMap.set(row.curso_id, {
+                id: row.curso_id,
+                titulo: row.curso_titulo,
+                categoria: row.curso_categoria,
+                programa: row.curso_programa,
+                descripcion_larga: row.curso_descripcion_larga,
+                descripcion_corta: row.curso_descripcion_corta,
+                resultados_aprendizaje: row.curso_resultados_aprendizaje,
+                duracion: row.curso_duracion,
+                estado: row.curso_estado,
+                fecha_creacion: row.curso_fecha_creacion,
+                unidades: []
+            });
+        }
+
+        const curso = cursosMap.get(row.curso_id);
+
+        // Crear o actualizar la unidad
+        if (row.unidad_id) {
+            let unidad = curso.unidades.find((u) => u.id === row.unidad_id);
+            if (!unidad) {
+                unidad = {
+                    id: row.unidad_id,
+                    titulo: row.unidad_titulo,
+                    descripcion: row.unidad_descripcion,
+                    lecciones: []
+                };
+                curso.unidades.push(unidad);
+            }
+
+            // Crear o actualizar la lección
+            if (row.leccion_id) {
+                let leccion = unidad.lecciones.find((l) => l.id === row.leccion_id);
+                if (!leccion) {
+                    leccion = {
+                        id: row.leccion_id,
+                        titulo: row.leccion_titulo,
+                        tematicas: row.leccion_tematicas,
+                        resultados_aprendizaje: row.leccion_resultados_aprendizaje,
+                        tipo: row.leccion_tipo,
+                        caracteristicas: row.leccion_caracteristicas,
+                        proposito: row.leccion_proposito,
+                        duracion: row.leccion_duracion,
+                        semana_sugerida: row.leccion_semana_sugerida,
+                        recursos: []
+                    };
+                    unidad.lecciones.push(leccion);
+                }
+
+                // Agregar recurso
+                if (row.recurso_id) {
+                    leccion.recursos.push({
+                        id: row.recurso_id,
+                        tipo: row.recurso_tipo,
+                        nombre: row.recurso_nombre,
+                        url: row.recurso_url
+                    });
+                }
+            }
+        }
+    });
+
+    return Array.from(cursosMap.values()); // Devuelve los cursos como un array
+};
+
 
 
