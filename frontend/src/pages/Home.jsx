@@ -1,26 +1,49 @@
+
 import '../style/home.css'
 import React, { useEffect, useState, useRef } from "react";
 import { Header } from "../components/header.jsx";
-import { CardCourse } from '../components/CardCourse.jsx'
-import { GraphicTort } from '../components/GraphicTort.jsx'
-import { GraphicBar } from '../components/GraphicBar.jsx'
+import { CardCourse } from '../components/CardCourse.jsx';
+import { GraphicTort } from '../components/GraphicTort.jsx';
+import { GraphicBar } from '../components/GraphicBar.jsx';
 import { MenuHome } from "../components/MenuHome.jsx";
 import FormCreate from '../components/FormCreate.jsx';
 import { SearchBar } from "../components/SearchBar.jsx";
 import { useCourseStore } from '../store/CourseStore.jsx';
 import { CourseDetail } from '../components/CourseDetail.jsx';
 import {Mosaic} from 'react-loading-indicators'
+import BarChartExample from '../components/GraphicResource.jsx';
+import { useAuthStore } from "../store/AuthStore.jsx"; // Importamos el store para obtener el usuario
+import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
 export const Home= () => {
+  const { user, logout } = useAuthStore(); // Obtenemos el usuario autenticado y la función logout
   const { loadCourses, loading, error } = useCourseStore() 
   const courses = useCourseStore((state) => state.courses)
- 
   const [Courses, setCourses] = useState(false)
   const [Dashboard, setDashboard] = useState(true)
   const [Formulario, setFormulario] = useState(false)
   const [ViewCourseDetail, setViewCourseDetail] = useState(false)
   const selectedCourseRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("")  
+  const navigate = useNavigate();
+
+// Componente TitleTyping dinámico
+const TitleTyping = ({ text }) => {
+  const textRef = React.useRef(null);
+
+  return <h1 className="title-typing" ref={textRef}>{text}</h1>;
+};
+useEffect(() => {
+  loadCourses('1')
+  const element = textRef.current;
+  const textWidth = element.scrollWidth; // Obtén el ancho del texto
+  const animationDuration = `${text.length / 10}s`; // Calcula la duración basada en el texto
+
+  element.style.animation = `typing ${animationDuration} steps(${text.length}, end) forwards, blink 0.75s step-end infinite`;
+  element.style.setProperty('--text-width', `${textWidth}px`);
+}, [text]);
   
+   // Usamos useNavigate para redirigir al login
+
   const courseList = [
     { id: 1, title: "Web Design templates", description: "Learn web design.", progress: 75 },
     { id: 2, title: "React Basics", description: "Understand React concepts.", progress: 40 },
@@ -29,13 +52,9 @@ export const Home= () => {
     { id: 5, title: "Node.js Essentials", description: "Dive into backend development with Node.js.", progress: 50 },
     { id: 6, title: "Responsive Web Design", description: "Create designs that adapt to all screen sizes.", progress: 80 },
   ];
-  
   const filteredCourses = courses.filter((course) =>
     course.titulo.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  useEffect(() => {
-    loadCourses('1')
-  }, [])
   return (
     !loading?
       <div className="container-home">
@@ -81,39 +100,58 @@ export const Home= () => {
                         </div>                  
                       </div>
                     </div>
-                    <div className="dashboard-right">
-                      <div className="profile-section">
-                        <img
-                          src="https://via.placeholder.com/100"
-                          alt="Profile"
-                          className="profile-image"
-                        />
-                        <h2 className="profile-name">Juan Pérez</h2>
-                        <p className="profile-job">Professor - Computer Science</p>
-                      </div>
-                      <div className="active-courses">
-                        <h3>Active Courses</h3>
-                        <ul>
-                          {courseList.map((course) => (
-                            <li className="course-card" key={course.id}>{course.title}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="reminders">
-                        <h3>Reminders</h3>
-                        <ul>
-                          <li>Your next class is tomorrow at 10 AM</li>
-                          <li>Grade assignments for "React Basics"</li>
-                          <li>Prepare slides for JavaScript lecture</li>
-                        </ul>
-                      </div>
+                    <div>
+                      <GraphicBar />
+                    </div>
+                    <div>
+                      <BarChartExample />
                     </div>
                   </div>
-                )
-              }           
-      
-           
-           {Courses && !ViewCourseDetail && (
+                     )
+                    }   
+                      {Courses && !ViewCourseDetail && (
+                <div className="dashboard-right">
+                  <div className="profile-section">
+                    <img
+                      src="https://via.placeholder.com/100"
+                      alt="Profile"
+                      className="profile-image"
+                    />
+                    <h2 className="profile-name">{user?.nombre || "Guest"}</h2>
+                    <p className="profile-job">{user?.area || "Professor - Computer Science"}</p>
+                  </div>
+                  <div className="active-courses">
+                    <h3>Active Courses</h3>
+                    <ul>
+                      {courseList.map((course) => (
+                        <li className="course-card" key={course.id}>
+                          {course.title}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="reminders">
+                    <h3>Reminders</h3>
+                    <ul>
+                      <li>Your next class is tomorrow at 10 AM</li>
+                      <li>Grade assignments for "React Basics"</li>
+                      <li>Prepare slides for JavaScript lecture</li>
+                    </ul>
+                  </div>
+
+                  <button
+                    className="button-logout"
+                    onClick={async () => {
+                      await logout();  // Llamamos a la función logout desde el store
+                      navigate("/login"); // Redirigimos a la página de login
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+          )}
+
+          {Courses && (
             <div className="content-courses">
               <div className="courses-header">
                 <span className="courses-header-title">Courses</span>
@@ -158,7 +196,9 @@ export const Home= () => {
       <div className='container-loading'>
       <Mosaic color="#32cd32" size="large" text="Loading..." textColor="" />
       </div>
-      
+     
+
+
+
   );
 };
-
