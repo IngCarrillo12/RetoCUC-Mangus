@@ -27,6 +27,7 @@
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   width: 200px;
+  color: white;
 }
 
 .home-menu:hover .menu-title {

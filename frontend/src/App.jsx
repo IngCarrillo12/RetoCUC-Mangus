@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuthStore } from './store/AuthStore.jsx';
@@ -21,8 +22,15 @@ function App() {
       <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} />
       <Route index path="/login" element={!isAuthenticated ? <Login /> : <Home />} />
       <Route path="/register" element={!isAuthenticated ? <Register /> : <Home />} />
+      <Route path="/feedbackcards" element={<FeedbackCards />} />
+      <Route path="/FeedbackCardsResponse" element={<FeedbackCardsResponse />} />
     </Routes>
   );
+
+
+
+
+  
 }
 
 export default App;

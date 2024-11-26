@@ -102,7 +102,7 @@ useEffect(() => {
                     <p className="profile-job">{user?.area || "Professor - Computer Science"}</p>
                   </div>
                   <div className="active-courses">
-                    <h3>Active Courses</h3>
+                    <h3>Courses List</h3>
                     <ul>
                       {courses.map((course) => (
                         <li className="course-card" key={course.id}>
@@ -182,10 +182,6 @@ useEffect(() => {
       :
       <div className='container-loading'>
       <Mosaic color="#32cd32" size="large" text="Loading..." textColor="" />
-      </div>
-     
-
-
-
+      </div>  
   );
 };
