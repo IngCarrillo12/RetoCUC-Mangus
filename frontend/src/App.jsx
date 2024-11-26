@@ -5,10 +5,11 @@ import {Home} from './pages/Home.jsx'
 //import { Routes, Route, useNavigate } from "react-router-dom";
 //import { useAuthStore } from './store/AuthStore.jsx';
 import { Routes, Route } from "react-router-dom";
-import FormCreate from './components/FormCreate.jsx';
+import {FormCreate} from './components/FormCreate.jsx';
 import CommentSection from './components/CommentSection .jsx';
 import FeedbackCards from './components/FeedbackCards.jsx';
 import FeedbackCardsResponse from './components/FeedbackResponse.jsx';
+import { Prueba } from './components/Prueba.jsx';
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
   return (
     <>
     {/* <Header/> */}
-    <Routes>
+    <Routes>  
     <Route path="/home" element={<Home />}/>
     <Route index path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />

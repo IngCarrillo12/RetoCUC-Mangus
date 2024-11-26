@@ -109,6 +109,8 @@ const { user} = useAuthStore();
     }
   };
 
+  
+
   const removeCharacteristic = (unitIndex, lessonIndex, characteristicIndex) => {
     const lessons = unitFields[unitIndex]?.lecciones || [];
     const lesson = lessons[lessonIndex];
@@ -308,7 +310,8 @@ const { user} = useAuthStore();
         </div>
       )}
 
-      <h2 className="h">Unidades</h2>
+      {/* Sección de Unidades */}
+      <h2>Unidades</h2>
       {unitFields.map((unit, unitIndex) => (
         <div key={unit.id} className="form-unit">
           <div className="collapsed-header" onClick={() => toggleUnit(unitIndex)}>
@@ -478,5 +481,3 @@ const { user} = useAuthStore();
     </form>
   );
 };
-
-export default FormCreate;
