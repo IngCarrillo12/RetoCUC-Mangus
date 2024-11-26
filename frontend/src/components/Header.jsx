@@ -1,10 +1,12 @@
 import "../style/header.css";
 import React from "react";
-import {useAuthStore} from '../store/AuthStore.jsx'
+import {useAuthStore} from '../store/AuthStore.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const { logout } = useAuthStore();
+  
   return (    
     <header className="header">
       <div className="header-slogan">

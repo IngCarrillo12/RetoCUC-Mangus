@@ -34,8 +34,8 @@ export const MenuHome = ({ courses, OnClickButtonCreate, onClickDashboard, onCli
         <ul className="section-list">
           {courses.map((course) => (
             <li key={course.id} className="course-item"  onClick={() => {
-              selectedCourseRef.current = course; // Actualiza la ref con el curso seleccionado
-              OnClickCourse(); // Ejecuta la función para mostrar los cursos
+              selectedCourseRef.current = course;
+              OnClickCourse();
             }}>
               <i className="fas fa-book course-icon"></i>
               <span className="course-title">{course.titulo}</span>

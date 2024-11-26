@@ -108,7 +108,7 @@ useEffect(() => {
                     <p className="profile-job">{user?.area || "Professor - Computer Science"}</p>
                   </div>
                   <div className="active-courses">
-                    <h3>Active Courses</h3>
+                    <h3>Courses List</h3>
                     <ul>
                       {courseList.map((course) => (
                         <li className="course-card" key={course.id}>
@@ -116,21 +116,13 @@ useEffect(() => {
                         </li>
                       ))}
                     </ul>
-                  </div>
-                  <div className="reminders">
-                    <h3>Reminders</h3>
-                    <ul>
-                      <li>Your next class is tomorrow at 10 AM</li>
-                      <li>Grade assignments for "React Basics"</li>
-                      <li>Prepare slides for JavaScript lecture</li>
-                    </ul>
-                  </div>
+                  </div>                  
 
                   <button
                     className="button-logout"
                     onClick={async () => {
-                      await logout();  // Llamamos a la función logout desde el store
-                      navigate("/login"); // Redirigimos a la página de login
+                      await logout(); 
+                      navigate("/login");
                     }}
                   >
                     Logout
@@ -187,10 +179,6 @@ useEffect(() => {
       :
       <div className='container-loading'>
       <Mosaic color="#32cd32" size="large" text="Loading..." textColor="" />
-      </div>
-     
-
-
-
+      </div>  
   );
 };

@@ -7,6 +7,8 @@ import {Home} from './pages/Home.jsx'
 import { Routes, Route } from "react-router-dom";
 import FormCreate from './components/FormCreate.jsx';
 import CommentSection from './components/CommentSection .jsx';
+import FeedbackCards from './components/FeedbackCards.jsx';
+import FeedbackCardsResponse from './components/FeedbackResponse.jsx';
 
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
   //console.log(isAuthenticated)
   //<Route path="/home" element={isAuthenticated*/?<Home/>:navigate('/login')}/>
   //const navigate = useNavigate()
-
+  
   return (
     <>
     {/* <Header/> */}
@@ -24,6 +26,9 @@ function App() {
     <Route path="/register" element={<Register />} />
     <Route path="/formcreate" element={<FormCreate />} />
     <Route path="/commentsection" element={<CommentSection />} />
+    <Route path="/feedbackcards" element={<FeedbackCards />} />
+    <Route path="/FeedbackCardsResponse" element={<FeedbackCardsResponse />} />
+
   </Routes>
   </>
   )
