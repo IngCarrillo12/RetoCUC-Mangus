@@ -9,7 +9,20 @@ import db from '../configDB/db.js'
         );
         return result.insertId; // Devuelve el ID de la unidad creada
     }
-
+    export const updateUnitModel = async (unidad_id, unidad) => {
+        const { titulo, descripcion, curso_id } = unidad;
+        const [result] = await db.query(
+            `UPDATE Unidades SET 
+            titulo = ?, 
+            descripcion = ?, 
+            curso_id = ? 
+            WHERE id = ?`,
+            [titulo, descripcion, curso_id, unidad_id]
+        );
+    
+        return result.affectedRows; // Devuelve el número de filas afectadas
+    };
+    
     // Obtener todas las unidades de un curso
   export const getUnitsByCourseIdModel = async(curso_id) =>{
         const [rows] = await db.query(
@@ -21,22 +34,17 @@ import db from '../configDB/db.js'
 
     // Obtener una unidad específica por ID
   export const getUnitByIdModel = async(unidad_id) => {
-        const [rows] = await db.query('SELECT * FROM Unidades WHERE unidad_id = ?', [unidad_id]);
+        const [rows] = await db.query('SELECT * FROM Unidades WHERE id = ?', [unidad_id]);
         return rows[0]; // Devuelve la unidad o undefined si no existe
     }
 
-    // Actualizar una unidad
-    export const updateUnitModel = async(unidad_id, titulo, descripcion) => {
-        const [result] = await db.query(
-            'UPDATE Unidades SET titulo = ?, descripcion = ? WHERE unidad_id = ?',
-            [titulo, descripcion, unidad_id]
-        );
-        return result.affectedRows; // Devuelve el número de filas afectadas
-    }
+
+    
 
     // Eliminar una unidad
     export const deleteUnitModel = async(unidad_id) =>{
-        const [result] = await db.query('DELETE FROM Unidades WHERE unidad_id = ?', [unidad_id]);
+        console.log(unidad_id)
+        const [result] = await db.query('DELETE FROM Unidades WHERE id = ?', [unidad_id]);
         return result.affectedRows; // Devuelve el número de filas afectadas
     }
 

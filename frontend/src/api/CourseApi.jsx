@@ -2,21 +2,62 @@ import axios from "axios"
 
 const urlApi = 'http://localhost:3000/api/courses'
 export const fetchLoadCourses = async(usuario_id)=>{
-    const token = localStorage.getItem('token'); // O úsalo desde tu store global
     try {
-        const { data } = await axios.get(
+        const {state}= await JSON.parse(localStorage.getItem('auth-storage')); 
+        const {data}  = await axios.get(
             `${urlApi}/details/${usuario_id}`,
             {
                 headers: {
-                    Authorization: `Bearer ${token}` // Incluye el token aquí
+                    Authorization: `Bearer ${state.token}`
                 },
-                withCredentials: true // Solo si necesitas enviar cookies también
+                withCredentials: true 
+            }
+        );
+        return {data};
+    } catch ({response}) {
+        return {error: response.data.message}
+    }
+}
+export const fetchAddCourse = async(course)=>{
+    try {
+        const { state } = await JSON.parse(localStorage.getItem('auth-storage')); 
+        const { data } = await axios.post(
+            `${urlApi}/create`, {course},
+            {
+                headers: {
+                    Authorization: `Bearer ${state.token}`
+                },
+                withCredentials: true 
             }
         );
         return data;
     } catch (error) {
-        console.error(`Error al cargar cursos: ${error}`);
-        return error;
+        return error
     }
 }
+export const fetchUpdateGroup = async (course) => {
+    console.log(course)
+    try {
+        // Obtiene el token del almacenamiento local
+        const { state } = await JSON.parse(localStorage.getItem('auth-storage'));
+
+        // Realiza la solicitud PUT a la API
+        const { data } = await axios.put(
+            `${urlApi}/update/${course.id}`, // Usa el ID del curso para la URL
+            { course }, // Cuerpo de la solicitud
+            {
+                headers: {
+                    Authorization: `Bearer ${state.token}`, // Autenticación con JWT
+                },
+                withCredentials: true, // Si se usan cookies
+            }
+        );
+
+        return data; // Devuelve la respuesta de la API
+    } catch ({ response }) {
+        // Manejo de errores
+        return { error: response?.data?.message || 'Error al actualizar el grupo' };
+    }
+};
+
 

@@ -51,3 +51,7 @@
 .register-img img{
     max-width: 800px;
 }
+.active-button{
+    background-color:  #004AAD;
+    color: white;
+}

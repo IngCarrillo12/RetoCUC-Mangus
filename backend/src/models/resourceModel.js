@@ -11,6 +11,22 @@ export const createResourceModel = async (data) => {
     return result.insertId; // Devuelve el ID del recurso creado
 };
 
+export const updateResourceModel = async (recurso_id, recurso) => {
+    const { tipo, nombre, url, leccion_id } = recurso;
+
+    const [result] = await db.query(
+        `UPDATE Recursos SET 
+        tipo = ?, 
+        nombre = ?, 
+        url = ?, 
+        leccion_id = ? 
+        WHERE recurso_id = ?`,
+        [tipo, nombre, url, leccion_id, recurso_id]
+    );
+
+    return result.affectedRows; // Devuelve el número de filas afectadas
+};
+
 // Obtener todos los recursos de una lección
 export const getResourcesByLessonIdModel = async (leccion_id) => {
     const [rows] = await db.query('SELECT * FROM Recursos WHERE leccion_id = ?', [leccion_id]);
@@ -23,16 +39,6 @@ export const getResourceByIdModel = async (recurso_id) => {
     return rows[0]; // Devuelve el recurso o undefined si no existe
 };
 
-// Actualizar un recurso
-export const updateResourceModel = async (recurso_id, data) => {
-    const { tipo, nombre, url } = data;
-
-    const [result] = await db.query(
-        `UPDATE Recursos SET tipo = ?, nombre = ?, url = ? WHERE recurso_id = ?`,
-        [tipo, nombre, url, recurso_id]
-    );
-    return result.affectedRows; // Devuelve el número de filas afectadas
-};
 
 // Eliminar un recurso
 export const deleteResourceModel = async (recurso_id) => {

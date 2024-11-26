@@ -11,36 +11,37 @@ export const useAuthStore = create(
       isAuthenticated: false, 
       loading: false,
       error: null,
-
+      setError: (error) => set({ error }),
+  
+      // Acción para establecer el estado de carga
+      setLoading: (loading) => set({ loading }),
 
       login: async (values) => {
         set({ loading: true, error: null }); 
-        try {
-          const data = await fetchLogin(values);
-          if (data?.token) {
-            set({
-              user: data.user,
-              token: data.token,
-              isAuthenticated: true,
-              loading: false,
-            });          
-          }
-          return { message: data.message, Authenticated: true };
-        } catch (error) {
-          // Manejo de errores con validación de la respuesta
-          const message = error.response?.data?.message || "An error occurred";
-          set({
-            error: message,
-            loading: false,
-          });
-          return { message: message, Authenticated: false }; // Usar el mensaje correcto
-        }
-      },
+    
+            const data = await fetchLogin(values); // Llamada a la API para login
+    
+            if (data?.token) {
+                set({
+                    user: data.user,
+                    token: data.token,
+                    isAuthenticated: true,
+                    loading: false,
+                });          
+            } else {
+              set({
+                error: data.error,
+                loading: false,
+            });
+            }
+
+          },
+    
       
 
       Register: async (values) => {
         set({ loading: true, error: null });
-        try {
+
             // Obtener los datos de registro
             const { user, token, message } = await fetchRegister(values);
     
@@ -55,10 +56,12 @@ export const useAuthStore = create(
                 // Si el token es válido, devolver el mensaje de éxito y registro exitoso
                 return { message, Registered: true };
             } else {
-                // Si no se obtiene un token válido, devolver un mensaje de error
-                return { message: "No se pudo registrar al usuario. Intenta nuevamente.", Registered: false };
+              set({
+                error: data.error,
+                loading: false,
+            });
             }
-        } catch (error) {
+ 
             // Manejar errores
             const errorMessage = error.response?.data?.message || "Ha ocurrido un error durante el registro.";
             set({
@@ -66,7 +69,7 @@ export const useAuthStore = create(
                 loading: false,
             });
             return { message: errorMessage, Registered: false };
-        }
+     
     },
     
 
@@ -80,6 +83,7 @@ export const useAuthStore = create(
             isAuthenticated: false,
             loading: false,
           });
+            localStorage.removeItem('auth-storage');  
         } catch (error) {
           set({
             error: error.response?.data?.message || "An error occurred",

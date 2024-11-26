@@ -2,7 +2,6 @@ import React from "react";
 import "../style/Timeline.css";
 
 export const Timeline = ({ estado }) => {
-  console.log(estado)
   return (
     <div className="timeline">
       {/* Paso 1 */}

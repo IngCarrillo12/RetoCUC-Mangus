@@ -12,10 +12,10 @@ export const createUnit = async (req, res) => {
         if (!curso) return res.status(404).json({ message: 'Curso no encontrado' });
 
         // Validar que el curso no esté en estado "Confirmado"
-        if (curso.estado === 'Confirmado') {
+        if (curso.estado === 'finalizado') {
             return res
                 .status(403)
-                .json({ message: 'No se pueden agregar unidades a un curso confirmado' });
+                .json({ message: 'No se pueden agregar unidades a un curso finalizado' });
         }
 
         // Crear la unidad
@@ -52,20 +52,8 @@ export const getUnitById = async (req, res) => {
     }
 };
 
-// Actualizar una unidad
-export const updateUnit = async (req, res) => {
-    const { unidad_id } = req.params;
-    const { titulo, descripcion } = req.body;
 
-    try {
-        const affectedRows = await updateUnitModel(unidad_id, titulo, descripcion);
-        if (affectedRows === 0) return res.status(404).json({ message: 'Unidad no encontrada' });
 
-        res.json({ message: 'Unidad actualizada con éxito' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar la unidad', error });
-    }
-};
 
 // Eliminar una unidad
 export const deleteUnit = async (req, res) => {

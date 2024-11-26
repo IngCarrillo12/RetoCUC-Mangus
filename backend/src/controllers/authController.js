@@ -13,9 +13,9 @@ export const register = async (req, res) => {
         const token = jwt.sign(
             { id: userId, email, rol },
             JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '5d' }
         );
-
+      
         // Responder con los datos del usuario y token
         res.status(201).json({
             message: 'Usuario registrado y autenticado con éxito',
@@ -24,6 +24,7 @@ export const register = async (req, res) => {
                 nombre,
                 email,
                 rol,
+                area,
             },
             token,
         });
@@ -35,31 +36,37 @@ export const register = async (req, res) => {
 // Login de usuario
 export const login = async (req, res) => {
     const { email, password } = req.body;
+
     try {
+        // Verificar si el usuario existe
         const user = await findByEmail(email);
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
 
+        // Verificar si la contraseña es correcta
         const isPasswordValid = await bcrypt.compare(password, user.contraseña_hash);
         if (!isPasswordValid) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
+        // Generar el token de acceso
         const token = jwt.sign(
-            { id: user.usuario_id, rol: user.rol },
+            { id: user.id, rol: user.rol },
             JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '5d' } // Token con expiración de 5 días
         );
 
-        // Responder con los datos del usuario y token
+        // Enviar la respuesta con los datos del usuario y el token
         res.json({
             message: 'Login exitoso',
             user: {
-                id: user.usuario_id,
+                id: user.id,
                 nombre: user.nombre,
                 email: user.email,
                 rol: user.rol,
+                area: user.area
             },
             token,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Error al iniciar sesión', error });
+        console.error(error); // Imprimir el error en el servidor para debugging
+        res.status(500).json({ message: 'Error al iniciar sesión', error: error.message || error });
     }
 };

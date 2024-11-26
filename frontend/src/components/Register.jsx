@@ -8,11 +8,9 @@ import { useAuthStore } from '../store/AuthStore.jsx'
 export const Register = () => {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
-    const { Register } = useAuthStore()
+    const { Register, error, loading } = useAuthStore()
     
     const [hoveredButton, setHoveredButton] = useState(null)
-    const [loading, setLoading] = useState(false) // Estado para el botón "Loading"
-
     return (
       <>
       <div className='container-register'>
@@ -76,9 +74,11 @@ export const Register = () => {
               <input type="password" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
             </div>
             <div className='container-button'>
+
               <button className="button" type='submit'>
                 {loading ? "Loading..." : "Register"}
               </button>
+              
             </div>    
           </form>
         </div>

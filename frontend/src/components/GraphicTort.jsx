@@ -3,7 +3,6 @@ import "../style/graphicTort.css";
 import { PieChart, Pie, Tooltip, Cell, Legend } from "recharts";
 
 export const GraphicTort = ({ courses }) => {
-  // Calcular los porcentajes de cada estado
   const totalCourses = courses.length;
   const statusCounts = courses.reduce(
     (acc, course) => {

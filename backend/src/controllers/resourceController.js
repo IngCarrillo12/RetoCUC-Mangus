@@ -19,6 +19,7 @@ export const createResource = async (req, res) => {
     }
 };
 
+
 // Obtener todos los recursos de una lección
 export const getResourcesByLessonId = async (req, res) => {
     const { leccion_id } = req.params;
@@ -45,20 +46,7 @@ export const getResourceById = async (req, res) => {
     }
 };
 
-// Actualizar un recurso
-export const updateResource = async (req, res) => {
-    const { recurso_id } = req.params;
-    const { tipo, nombre, url } = req.body;
 
-    try {
-        const affectedRows = await updateResourceModel(recurso_id, { tipo, nombre, url });
-        if (affectedRows === 0) return res.status(404).json({ message: 'Recurso no encontrado' });
-
-        res.json({ message: 'Recurso actualizado con éxito' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el recurso', error });
-    }
-};
 
 // Eliminar un recurso
 export const deleteResource = async (req, res) => {

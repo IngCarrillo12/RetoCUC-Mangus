@@ -1,10 +1,7 @@
 .app{
     height: 100vh;
 }
-.active-button{
-    background-color:  #004AAD;
-    color: white;
-}
+
 .course-header-container {
     display: flex;
     align-items: center;

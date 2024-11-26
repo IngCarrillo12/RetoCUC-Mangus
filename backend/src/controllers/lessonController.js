@@ -65,39 +65,8 @@ export const getLessonById = async (req, res) => {
     }
 };
 
-// Actualizar una lección
-export const updateLesson = async (req, res) => {
-    const { leccion_id } = req.params;
-    const {
-        titulo,
-        tematicas,
-        resultados_aprendizaje,
-        tipo,
-        caracteristicas,
-        proposito,
-        duracion,
-        semana_sugerida
-    } = req.body;
 
-    try {
-        const affectedRows = await updateLessonModel(leccion_id, {
-            titulo,
-            tematicas,
-            resultados_aprendizaje,
-            tipo,
-            caracteristicas,
-            proposito,
-            duracion,
-            semana_sugerida
-        });
 
-        if (affectedRows === 0) return res.status(404).json({ message: 'Lección no encontrada' });
-
-        res.json({ message: 'Lección actualizada con éxito' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar la lección', error });
-    }
-};
 
 // Eliminar una lección
 export const deleteLesson = async (req, res) => {

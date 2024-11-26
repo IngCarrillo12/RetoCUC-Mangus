@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import "../style/formCreate.css";
 import { useAuthStore } from "../store/AuthStore";
+import { useCourseStore } from "../store/CourseStore";
 
-const FormCreate = () => {
+export const FormCreate = ({courseData, onSubmitAction}) => {
 const { user} = useAuthStore();
-
+const {addCourse, editCourse} = useCourseStore()
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
+    reset,
   } = useForm({
     defaultValues: {
+      usuario_id: user.id || '',
       titulo: "",
       categoria: "",
       duracion: "",
@@ -128,10 +130,71 @@ const { user} = useAuthStore();
       updateUnit(unitIndex, updatedUnit);
     }
   };
+// Si hay datos del curso (modo edición), carga los valores
+useEffect(() => {
+  if (courseData) {
+    reset(courseData); // Restaura el formulario con los datos existentes
+  }
+}, [courseData, reset]);
+const cleanIds = (data) => {
+  // Crea una copia limpia del objeto
+  const cleanedData = { ...data };
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-  };
+  // Elimina el campo `id` si existe
+  delete cleanedData.id;
+
+  // Limpia las unidades
+  if (cleanedData.unidades) {
+    cleanedData.unidades = cleanedData.unidades.map((unidad) => {
+      const cleanedUnidad = { ...unidad };
+      delete cleanedUnidad.id;
+
+      // Limpia las lecciones dentro de la unidad
+      if (cleanedUnidad.lecciones) {
+        cleanedUnidad.lecciones = cleanedUnidad.lecciones.map((leccion) => {
+          const cleanedLeccion = { ...leccion };
+          delete cleanedLeccion.id;
+
+          // Limpia los recursos dentro de la lección
+          if (cleanedLeccion.recursos) {
+            cleanedLeccion.recursos = cleanedLeccion.recursos.map((recurso) => {
+              const cleanedRecurso = { ...recurso };
+              delete cleanedRecurso.id;
+              return cleanedRecurso;
+            });
+          }
+
+          return cleanedLeccion;
+        });
+      }
+
+      return cleanedUnidad;
+    });
+  }
+
+  return cleanedData;
+};
+
+// Aquí puedes manejar guardar/editar de forma genérica
+const onSubmit = async (data) => {
+  const cleanedData = cleanIds(data); // Limpia los datos antes de enviarlos
+
+  if (courseData) {
+    // Si se está editando un curso existente
+    await editCourse(courseData.id, {...cleanedData, usuario_id:user?.id});
+    setCurrentCourse({ ...currentCourse, ...updatedCourse })
+  } else {
+    console.log(cleanedData)
+    // Si se está creando un nuevo curso
+    await addCourse(cleanedData);
+  }
+
+  // Llama a cualquier acción adicional si se define
+  if (onSubmitAction) {
+    onSubmitAction(cleanedData);
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-container">
@@ -164,15 +227,7 @@ const { user} = useAuthStore();
               {errors.categoria && <span className="error">{errors.categoria.message}</span>}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="autor">Autor</label>
-              <input
-                id="autor"
-                type="text"
-                {...register('autor',)}
-              />
-              {errors.autor && <span className="error">{errors.autor.message}</span>}
-            </div>
+            
 
             <div className="form-group">
               <label htmlFor="duracion">Duración</label>
@@ -185,13 +240,13 @@ const { user} = useAuthStore();
             </div>
 
             <div className="form-group">
-              <label htmlFor="fechaCreacion">Fecha Creación</label>
+              <label htmlFor="fecha_creacion">Fecha Creación</label>
               <input
-                id="fechaCreacion"
+                id="fecha_creacion"
                 type="date"
-                {...register('fechaCreacion',)}
+                {...register('fecha_creacion',)}
               />
-              {errors.fechaCreacion && <span className="error">{errors.fechaCreacion.message}</span>}
+              {errors.fecha_creacion && <span className="error">{errors.fecha_creacion.message}</span>}
             </div>
 
             <div className="form-group">
@@ -349,6 +404,13 @@ const { user} = useAuthStore();
 
                   {!collapsedLessons[`${unitIndex}-${lessonIndex}`] && (
                     <>
+                    <div className="form-group">
+                <label>Titulo:</label>
+                <input
+                  id={`resultados_aprendizaje-${unitIndex}-${lessonIndex}`}
+                  {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].titulo`)}
+                />
+              </div>
                      <div className="form-group">
                 <label>Resultado de Aprendizaje:</label>
                 <input
@@ -356,7 +418,13 @@ const { user} = useAuthStore();
                   {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].resultados_aprendizaje`)}
                 />
               </div>
-
+              <div className="form-group">
+                <label>tematica:</label>
+                <input
+                  id={`tipo-${unitIndex}-${lessonIndex}`}
+                  {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].tematicas`)}
+                />
+              </div>
               <div className="form-group">
                 <label>Tipo de Lección:</label>
                 <input
@@ -393,38 +461,37 @@ const { user} = useAuthStore();
                       <h4 className="h">Características de la Lección</h4>
                       {lesson.recursos.map((char, charIndex) => (
                         <div key={charIndex} className="form-group">
-                          <select
-  className="listaRecursos"
-  {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`)}
-  onChange={(e) => {
-    const otherInput = document.getElementById(`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`);
-    if (e.target.value === "Otros") {
-      otherInput.style.display = 'block';
-    } else {
-      otherInput.style.display = 'none';
-      setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value); 
-    }
-  }}
->
-  <option value="OVA">OVA</option>
-  <option value="Videos">Videos</option>
-  <option value="Infografía">Infografía</option>
-  <option value="Quices">Quices</option>
-  <option value="Foro">Foro</option>
-  <option value="Entregable">Entregable</option>
-  <option value="Otros">Otros</option>
-</select>
+                                  <select className="listaRecursos"
+          {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`)}
+          onChange={(e) => {
+            const otherInput = document.getElementById(`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`);
+            if (e.target.value === "Otros") {
+              otherInput.style.display = 'block';
+            } else {
+              otherInput.style.display = 'none';
+              setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value); 
+            }
+          }}
+        >
+          <option value="OVA">OVA</option>
+          <option value="Videos">Videos</option>
+          <option value="Infografía">Infografía</option>
+          <option value="Quices">Quices</option>
+          <option value="Foro">Foro</option>
+          <option value="Entregable">Entregable</option>
+          <option value="Otros">Otros</option>
+        </select>
 
-<div id={`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`} style={{ display: 'none' }}>
-  <label>Especificar Tipo de Recurso</label>
-  <input
-    type="text"
-    onChange={(e) =>
-      setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value)
-    } 
-  />
-</div>
-<label>Nombre de la Característica</label>
+              <div id={`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`} style={{ display: 'none' }}>
+                <label>Especificar Tipo de Recurso</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value)
+                  } 
+                />
+              </div>
+              <label>Nombre de la Característica</label>
                   <input
                     {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].nombre`)}
                   />

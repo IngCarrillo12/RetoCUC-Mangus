@@ -12,48 +12,42 @@ import { useCourseStore } from '../store/CourseStore.jsx';
 import { CourseDetail } from '../components/CourseDetail.jsx';
 import {Mosaic} from 'react-loading-indicators'
 import BarChartExample from '../components/GraphicResource.jsx';
-import { useAuthStore } from "../store/AuthStore.jsx"; // Importamos el store para obtener el usuario
-import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
+import { useAuthStore } from "../store/AuthStore.jsx"; 
 import {TitleTyping} from '../components/TitleTyping.jsx'
 export const Home= () => {
-  const { user, logout } = useAuthStore(); // Obtenemos el usuario autenticado y la función logout
-  const { loadCourses, loading, error } = useCourseStore() 
-  const courses = useCourseStore((state) => state.courses)
+  const { user, logout } = useAuthStore(); 
+  const { loadCourses, loading, error,courses } = useCourseStore() 
   const [Courses, setCourses] = useState(false)
   const [Dashboard, setDashboard] = useState(true)
   const [Formulario, setFormulario] = useState(false)
   const [ViewCourseDetail, setViewCourseDetail] = useState(false)
   const selectedCourseRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("")  
-  const navigate = useNavigate();
-
-// Componente TitleTyping dinámico
-
+  const validatedError = (error)=>{
+    if(error == 'El token ha expirado'){  
+     logout()
+    }
+  }
 useEffect(() => {
-  loadCourses('1')
+  loadCourses(user?.id)
+  if(error){
+    validatedError(error)
+  }
 }, []);
   
 
-  const courseList = [
-    { id: 1, title: "Web Design templates", description: "Learn web design.", progress: 75 },
-    { id: 2, title: "React Basics", description: "Understand React concepts.", progress: 40 },
-    { id: 3, title: "Advanced CSS", description: "Master CSS techniques.", progress: 90 },
-    { id: 4, title: "JavaScript Fundamentals", description: "Learn JavaScript.", progress: 25 },
-    { id: 5, title: "Node.js Essentials", description: "Dive into backend development with Node.js.", progress: 50 },
-    { id: 6, title: "Responsive Web Design", description: "Create designs that adapt to all screen sizes.", progress: 80 },
-  ];
   const filteredCourses = courses.filter((course) =>
     course.titulo.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return (
     !loading?
       <div className="container-home">
-       <MenuHome courses={courses} OnClickButtonCreate={()=>{() => {
+       <MenuHome courses={courses} OnClickButtonCreate={()=>{ 
                 setFormulario(true);
                 setDashboard(false);
                 setCourses(false)
                 setViewCourseDetail(false);
-              }}} 
+              }} 
               onClickDashboard={() => {
                 setCourses(false);
                 setDashboard(true);
@@ -73,7 +67,7 @@ useEffect(() => {
             setViewCourseDetail(!ViewCourseDetail)
           }}
           selectedCourseRef={selectedCourseRef}
-          courseList={courseList}/>
+          courseList={courses}/>
         <div className="home-content">
           <Header/>          
           <div className="content-info">                      
@@ -110,9 +104,9 @@ useEffect(() => {
                   <div className="active-courses">
                     <h3>Active Courses</h3>
                     <ul>
-                      {courseList.map((course) => (
+                      {courses.map((course) => (
                         <li className="course-card" key={course.id}>
-                          {course.title}
+                          {course.titulo}
                         </li>
                       ))}
                     </ul>
@@ -125,16 +119,6 @@ useEffect(() => {
                       <li>Prepare slides for JavaScript lecture</li>
                     </ul>
                   </div>
-
-                  <button
-                    className="button-logout"
-                    onClick={async () => {
-                      await logout();  // Llamamos a la función logout desde el store
-                      navigate("/login"); // Redirigimos a la página de login
-                    }}
-                  >
-                    Logout
-                  </button>
                 </div>
                   </div>
                   
@@ -174,12 +158,23 @@ useEffect(() => {
             ) 
                    
             }
-            {
-              Formulario?
-              <FormCreate/>
-              :''
-            }
-            
+         {
+  Formulario ? (
+    <FormCreate
+      courseData={null} // Pasa null para crear un curso nuevo
+      onSubmitAction={(data) => {
+        if (!cursoExistente) {
+          crearCurso(data); // Crea un nuevo curso
+        } else {
+          editarCurso(cursoExistente.id, data); // Edita un curso existente
+        }
+        setFormulario(false); // Cierra el formulario después de crear o editar
+      }}
+    />
+  ) : (
+    ''
+  )
+}
           </div>
         </div>
       </div>

@@ -1,36 +1,84 @@
 import db from '../configDB/db.js'
 
     // Crear una lección
-    export const createLessonModel = async(data) => {
+    export const createLessonModel = async (data) => {
         const {
             unidad_id,
+            titulo,
+            tematicas = '',  // Asigna valores vacíos si no se envían
+            resultados_aprendizaje = '',  // Asigna valores vacíos si no se envían
+            tipo = '',  // Asigna valores vacíos si no se envían
+            proposito = '',  // Asigna valores vacíos si no se envían
+            duracion,
+            semana_sugerida
+        } = data;
+    
+        try {
+            // Inserta la lección en la tabla 'Lecciones'
+            const [result] = await db.query(
+                `INSERT INTO Lecciones 
+                (unidad_id, titulo, tematicas, resultados_aprendizaje, tipo, 
+                proposito, duracion, semana_sugerida) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    unidad_id,
+                    titulo,
+                    tematicas,
+                    resultados_aprendizaje,
+                    tipo,
+                    proposito,
+                    duracion,
+                    semana_sugerida
+                ]
+            );
+    
+            // Devuelve el ID de la lección creada
+            return result.insertId;
+        } catch (error) {
+            console.error('Error al crear la lección:', error);
+            throw new Error('Error al crear la lección');
+        }
+    };
+    export const updateLessonModel = async (leccion_id, leccion) => {
+        const {
             titulo,
             tematicas,
             resultados_aprendizaje,
             tipo,
-            caracteristicas,
             proposito,
             duracion,
-            semana_sugerida
-        } = data;
-
+            semana_sugerida,
+            unidad_id
+        } = leccion;
+    
         const [result] = await db.query(
-            `INSERT INTO Lecciones (unidad_id, titulo, tematicas, resultados_aprendizaje, tipo, caracteristicas, 
-            proposito, duracion, semana_sugerida) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            `UPDATE Lecciones SET 
+            titulo = ?, 
+            tematicas = ?, 
+            resultados_aprendizaje = ?, 
+            tipo = ?, 
+            proposito = ?, 
+            duracion = ?, 
+            semana_sugerida = ?, 
+            unidad_id = ?
+            WHERE leccion_id = ?`,
             [
-                unidad_id,
                 titulo,
                 tematicas,
                 resultados_aprendizaje,
                 tipo,
-                caracteristicas,
                 proposito,
                 duracion,
-                semana_sugerida
+                semana_sugerida,
+                unidad_id,
+                leccion_id
             ]
         );
-        return result.insertId; // Devuelve el ID de la lección creada
-    }
+    
+        return result.affectedRows; // Devuelve el número de filas afectadas
+    };
+    
+    
     // Obtener todas las lecciones de una unidad
 export const getLessonsByUnitIdModel = async (unidad_id) => {
     const [rows] = await db.query(
@@ -47,35 +95,7 @@ export const getLessonByIdModel = async (leccion_id) => {
 };
 
 // Actualizar una lección
-export const updateLessonModel = async (leccion_id, data) => {
-    const {
-        titulo,
-        tematicas,
-        resultados_aprendizaje,
-        tipo,
-        caracteristicas,
-        proposito,
-        duracion,
-        semana_sugerida
-    } = data;
 
-    const [result] = await db.query(
-        `UPDATE Lecciones SET titulo = ?, tematicas = ?, resultados_aprendizaje = ?, tipo = ?, caracteristicas = ?, 
-        proposito = ?, duracion = ?, semana_sugerida = ? WHERE leccion_id = ?`,
-        [
-            titulo,
-            tematicas,
-            resultados_aprendizaje,
-            tipo,
-            caracteristicas,
-            proposito,
-            duracion,
-            semana_sugerida,
-            leccion_id
-        ]
-    );
-    return result.affectedRows; // Devuelve el número de filas afectadas
-};
 
 // Eliminar una lección
 export const deleteLessonModel = async (leccion_id) => {
