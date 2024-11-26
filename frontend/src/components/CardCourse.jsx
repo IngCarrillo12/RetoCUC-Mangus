@@ -1,8 +1,9 @@
-import React from 'react'
-import '../style/cardCourse.css'
-export const CardCourse = () => {
+import React from 'react';
+import '../style/cardCourse.css';
+import {Timeline} from '../components/TimeLine.jsx'
+export const CardCourse = ({ title, description, estado, unidades='', duracion='', lecciones='',onClick = ()=>{}}) => {
   return (
-    <div className="card">
+    <div className="card" onClick={onClick}>
       <div className="card-wrapper">
         <svg
           fill="none"
@@ -17,22 +18,21 @@ export const CardCourse = () => {
             <path d="m2 20c1.10457 0 2-.8954 2-2s-.89543-2-2-2-2 .8954-2 2 .89543 2 2 2z" />
           </g>
         </svg>
-    </div>
-      <div className='card-img'>
-        <img src="https://img.freepik.com/vector-gratis/concepto-tutoriales-linea_52683-37480.jpg" alt="" />
       </div>
- 
-    <div className="card-title">Web Design templates Selection</div>
-    <div className="card-subtitle">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elitsed do eiusmod.
+      <div className="card-img">
+        <img
+          src="https://img.freepik.com/vector-gratis/concepto-tutoriales-linea_52683-37480.jpg"
+          alt={title}
+        />
+      </div>
+      <div className="card-title">{title}</div>
+      <div className="card-subtitle">{description}</div>
+      <div className="card-subtitle"><b>Unidades: </b>{unidades!=''?`${unidades}`:""}</div>
+      <div className="card-subtitle"><b>Duracion: </b>{duracion!=''?`${duracion}`:""}</div>
+      <div className="card-subtitle"><b>Lecciones: </b>{lecciones!=''?`${lecciones}`:""}</div>
+      <div className="card-progress">
+        <Timeline estado={estado}/>
+      </div>
     </div>
-    <div className="card-indicator">
-      <span className="card-indicator-amount">135</span> Projects /{" "}
-      <span className="card-indicator-percentage">75%</span>
-    </div>
-    <div className="card-progress">
-      <progress value="75" max="100"></progress>
-    </div>
-  </div>
-  )
-}
+  );
+};

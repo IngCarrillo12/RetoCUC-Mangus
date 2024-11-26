@@ -10,6 +10,7 @@
     z-index: 6 !important;
 }
 .slogan{
+    padding-left: 40px;
     font-size: 2rem;
     font-weight: bold;
     color: black;
@@ -30,8 +31,8 @@
 }
 .nav-list{
     display: flex;
-    align-items: center;
-    width: 50%;
+    align-items: end;
+    width: 10%;
     list-style: none;
 }
 .nav-list li{
@@ -43,6 +44,6 @@
     font-weight: bold;
 }
 .nav-user{
-    width: 10%;
+    width: 62px;
 }
 

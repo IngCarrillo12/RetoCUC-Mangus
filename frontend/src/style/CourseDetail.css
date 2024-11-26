@@ -1,24 +1,32 @@
-.modal{
-    position: absolute;
+
+.course-detail{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
     width: 100%;
+    padding: 1rem 2rem;
 }
-.container-CourseDetail{
+.course-container{
+    display: flex;
+    gap: 1rem;
+}
+.coursedetail-card{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 50%;
+    background-color: transparent;
 }
-.CourseDetail-stat{
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
+.edit-button{
+    width: 25%;
+    height: 60px;
+    background-color: #0fb4eb;
+    color: white;
+    border: 1px solid #0fb4eb;
+    transition: all linear 300ms;
 }
-.stat-info{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+.edit-button:hover{
+    background-color: white;
+    color: #0fb4eb;
 }

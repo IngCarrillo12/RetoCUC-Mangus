@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import {useForm} from 'react-hook-form'
 import {useAuthStore} from '../store/AuthStore.jsx'
 import {useNavigate} from 'react-router-dom'
-import { fetchLogin } from '../api/AuthApi.jsx'
 import '../style/login.css'
 import logo from '../img/saly-11.png'
 
@@ -53,9 +52,14 @@ export const Login = () => {
 </div>
 <div className="form-group">
     <label htmlFor="password" className="form-label">Password:</label>
-    <input type="text" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
-</div>
-        <button className="button"  type='submit'> {loading ? "Loading..." : "Login"}</button>
+    <input type="password" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
+</div>  
+
+
+      <button className="button"  type='submit'> {loading ? "Loading..." : "Login"}</button>
+
+
+       
         </form>
     </div>
     </div>
