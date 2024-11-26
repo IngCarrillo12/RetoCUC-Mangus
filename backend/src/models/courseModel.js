@@ -10,15 +10,19 @@ export const createCourseModel = async (curso) => {
         descripcion_corta,
         resultados_aprendizaje,
         duracion,
+        descripcion_link,
+        publico_objetivo,
+        storytelling_problema,
+        storytelling_solucion,
+        storytelling_final,
+        palabras_clave,
         usuario_id,
         estado = "borrador",
     } = curso;
-
     const [result] = await db.query(
-        `INSERT INTO Cursos (titulo, categoria, programa, descripcion_larga, descripcion_corta, resultados_aprendizaje, duracion, usuario_id, estado, fecha_creacion) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? , NOW())`,
+        `INSERT INTO Cursos (titulo, categoria, programa, descripcion_larga, descripcion_corta, resultados_aprendizaje, duracion, descripcion_link, publico_objetivo, storytelling_problema, storytelling_solucion, storytelling_final, palabras_clave, usuario_id, estado, fecha_creacion) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
         [
-            
             titulo,
             categoria,
             programa,
@@ -26,6 +30,12 @@ export const createCourseModel = async (curso) => {
             descripcion_corta,
             resultados_aprendizaje,
             duracion,
+            descripcion_link,
+            publico_objetivo,
+            storytelling_problema,
+            storytelling_solucion,
+            storytelling_final,
+            palabras_clave,
             usuario_id,
             estado
         ]
@@ -44,13 +54,19 @@ export const updateCourseModel = async (curso_id, curso) => {
     const {
         titulo,
         categoria,
-        autor,
         programa,
         descripcion_larga,
         descripcion_corta,
         resultados_aprendizaje,
         duracion,
-        estado,
+        descripcion_link,
+        publico_objetivo,
+        storytelling_problema,
+        storytelling_solucion,
+        storytelling_final,
+        palabras_clave,
+        usuario_id,
+        estado
     } = curso;
 
     const [result] = await db.query(
@@ -62,7 +78,14 @@ export const updateCourseModel = async (curso_id, curso) => {
         descripcion_larga = ?, 
         descripcion_corta = ?, 
         resultados_aprendizaje = ?, 
-        duracion = ?, 
+        duracion = ?,  
+        descripcion_link  = ?,
+        publico_objetivo  = ?, 
+        storytelling_problema  = ?,
+        storytelling_solucion  = ?,
+        storytelling_final  = ?,
+        palabras_clave  = ?,
+        usuario_id  = ?,
         estado = ? 
         WHERE id = ?`,
         [
@@ -74,6 +97,13 @@ export const updateCourseModel = async (curso_id, curso) => {
             descripcion_corta,
             resultados_aprendizaje,
             duracion,
+            descripcion_link,
+            publico_objetivo,
+            storytelling_problema,
+            storytelling_solucion,
+            storytelling_final,
+            palabras_clave,
+            usuario_id,
             estado,
             curso_id,
         ]
@@ -107,6 +137,12 @@ export const getCourseWithDetailsModel = async (cursoId) => {
             c.descripcion_corta AS curso_descripcion_corta,
             c.resultados_aprendizaje AS curso_resultados_aprendizaje,
             c.duracion AS curso_duracion,
+            c.descripcion_link AS curso_descripcion_link,
+            c.publico_objetivo AS curso_publico_objetivo,
+            c.storytelling_problema AS curso_storytelling_problema,
+            c.storytelling_solucion AS curso_storytelling_solucion ,
+            c.storytelling_final AS curso_storytelling_final,
+            c.palabras_clave AS curso_palabras_clave,
             c.estado AS curso_estado,
             c.fecha_creacion AS curso_fecha_creacion,
             u.id AS unidad_id,
@@ -145,7 +181,7 @@ export const getCoursesWithDetailsByUserIdModel = async (usuario_id) => {
     const [rows] = await db.query(
         `
         SELECT 
-            c.id AS curso_id,
+           c.id AS curso_id,
             c.titulo AS curso_titulo,
             c.categoria AS curso_categoria,
             c.programa AS curso_programa,
@@ -153,6 +189,12 @@ export const getCoursesWithDetailsByUserIdModel = async (usuario_id) => {
             c.descripcion_corta AS curso_descripcion_corta,
             c.resultados_aprendizaje AS curso_resultados_aprendizaje,
             c.duracion AS curso_duracion,
+            c.descripcion_link AS curso_descripcion_link,
+            c.publico_objetivo AS curso_publico_objetivo,
+            c.storytelling_problema AS curso_storytelling_problema,
+            c.storytelling_solucion AS curso_storytelling_solucion ,
+            c.storytelling_final AS curso_storytelling_final,
+            c.palabras_clave AS curso_palabras_clave,
             c.estado AS curso_estado,
             c.fecha_creacion AS curso_fecha_creacion,
             u.id AS unidad_id,
@@ -204,6 +246,13 @@ export const getCoursesWithDetailsByUserIdModel = async (usuario_id) => {
                 duracion: row.curso_duracion,
                 estado: row.curso_estado,
                 fecha_creacion: row.curso_fecha_creacion,
+                descripcion_link: row.descripcion_link,
+                publico_objetivo: row.publico_objetivo,
+                storytelling_problema: row. storytelling_problema,
+                storytelling_solucion: row.storytelling_solucion,
+                storytelling_final: row.storytelling_final,
+                palabras_clave: row.palabras_clave,
+                fecha_creacion: row.curso_fecha_creacion,
                 unidades: []
             });
         }
@@ -236,6 +285,13 @@ export const getCoursesWithDetailsByUserIdModel = async (usuario_id) => {
                         caracteristicas: row.leccion_caracteristicas,
                         proposito: row.leccion_proposito,
                         duracion: row.leccion_duracion,
+                        descripcion_link: row.descripcion_link,
+                        publico_objetivo: row.publico_objetivo,
+                        storytelling_problema: row. storytelling_problema,
+                        storytelling_solucion: row.storytelling_solucion,
+                        storytelling_final: row.storytelling_final,
+                        palabras_clave: row.palabras_clave,
+                        fecha_creacion: row.curso_fecha_creacion,
                         semana_sugerida: row.leccion_semana_sugerida,
                         recursos: []
                     };

@@ -6,7 +6,7 @@ import { CardCourse } from '../components/CardCourse.jsx';
 import { GraphicTort } from '../components/GraphicTort.jsx';
 import { GraphicBar } from '../components/GraphicBar.jsx';
 import { MenuHome } from "../components/MenuHome.jsx";
-import FormCreate from '../components/FormCreate.jsx';
+import {FormCreate} from '../components/FormCreate.jsx';
 import { SearchBar } from "../components/SearchBar.jsx";
 import { useCourseStore } from '../store/CourseStore.jsx';
 import { CourseDetail } from '../components/CourseDetail.jsx';

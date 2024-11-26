@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/cardCourse.css';
 import {Timeline} from '../components/TimeLine.jsx'
-export const CardCourse = ({ title, description, estado, onClick}) => {
+export const CardCourse = ({ title, description, estado, unidades='', duracion='', lecciones='',onClick = ()=>{}}) => {
   return (
     <div className="card" onClick={onClick}>
       <div className="card-wrapper">
@@ -27,6 +27,9 @@ export const CardCourse = ({ title, description, estado, onClick}) => {
       </div>
       <div className="card-title">{title}</div>
       <div className="card-subtitle">{description}</div>
+      <div className="card-subtitle">{unidades!=''?`Unidades: ${unidades}`:""}</div>
+      <div className="card-subtitle">{duracion!=''?`Duracion: ${duracion}`:""}</div>
+      <div className="card-subtitle">{lecciones!=''?`Lecciones: ${lecciones}`:""}</div>
       <div className="card-progress">
         <Timeline estado={estado}/>
       </div>
