@@ -71,10 +71,11 @@
 }
 
 .heading {
-  text-align: left;
   font-weight: 900;
   font-size: 30px;
-  color: rgb(0 0 0);
+  color: rgb(0, 0, 0);
+  margin: 0;
+  flex-grow: 1;
 }
 
 .form-row {
@@ -85,18 +86,18 @@
 
 .btn-submit {
   display: block;
-  width: 100%;
+  width: 25%;
+  margin: 20px 0px;
   font-weight: bold;
   background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
   color: white;
   padding: 15px;
-  margin: 0px auto;
   border-radius: 20px;
   box-shadow: rgba(133, 189, 215, 0.878) 0px 20px 10px -15px;
   border: none;
   transition: all 0.2s ease-in-out;
   text-align: center;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .btn-submit:hover {
@@ -111,18 +112,21 @@
 
 .btn-unit {
   display: block;
-  width: 100%;
+  width: 25%;
   font-weight: bold;
   background: linear-gradient(45deg, #0575E6 0%, #021B79 100%);
   color: white;
   padding: 15px;
-  margin: 20px auto;
   border-radius: 20px;
   box-shadow: rgba(133, 189, 215, 0.878) 0px 20px 10px -15px;
   border: none;
   transition: all 0.2s ease-in-out;
   text-align: center;
   cursor: pointer;
+  margin: 20px 0px;
+  position: relative;
+  left: 0; 
+  align-self: flex-start;
 }
 
 .btn-unit:hover {
@@ -137,7 +141,7 @@
 
 .btn-lesson {
   display: block;
-  width: 100%;
+  width: 25%;
   font-weight: bold;
   background: linear-gradient(45deg, #4235f0 0%, #3e51ff 100%);
   color: white;
@@ -149,6 +153,7 @@
   transition: all 0.2s ease-in-out;
   text-align: center;
   cursor: pointer;
+  margin: 20px 0px;
 }
 
 .btn-lesson:hover {
@@ -163,7 +168,7 @@
 
 .btn-resource {
   display: block;
-  width: 100%;
+  width: 25%;
   font-weight: bold;
   background: linear-gradient(45deg, #22058d 0%, #4136da 100%);
   color: white;
@@ -175,6 +180,7 @@
   transition: all 0.2s ease-in-out;
   text-align: center;
   cursor: pointer;
+  margin: 20px 0px;
 }
 
 .btn-resource:hover {
@@ -189,7 +195,7 @@
 
 .btn-cancel {
   display: block;
-  width: 100%;
+  width:25%;
   font-weight: bold;
   background: linear-gradient(45deg, #f32004 0%, #ac0b00 100%);
   color: white;
@@ -201,6 +207,7 @@
   transition: all 0.2s ease-in-out;
   text-align: center;
   cursor: pointer;
+  margin: 20px 0px;
 }
 
 .btn-cancel:hover {
@@ -245,4 +252,61 @@
 
 label {
   margin-top: 15px;
+}
+
+.collapsed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  background-color: #f9f9f9;
+  color: #333; 
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.collapsed-header:hover {
+  background-color: #eaeaea; 
+}
+
+.collapsed-header h4 {
+  margin: 0;
+  font-size: 16px;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.collapsed-header span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  margin: 0; 
+  text-align: right;
+}
+
+.course-header-container {
+  display: flex;
+  align-items: center;
+}
+.course-header-icon {
+  font-size: 24px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.butonesFinales {
+  display: flex;
+  gap: 3rem;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.course-header-container span{
+  display: flex;
+  justify-content: end;
 }

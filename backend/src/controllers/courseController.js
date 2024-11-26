@@ -6,7 +6,6 @@ import {createResourceModel} from '../models/resourceModel.js';
 
 export const createGroup = async (req, res) => {
     const { curso } = req.body;
-
     try {
         // Valida que el usuario_id esté presente en el cuerpo de la solicitud
         if (!curso.usuario_id) {
@@ -47,10 +46,16 @@ export const createCourse = async (req, res) => {
         descripcion_corta,
         resultados_aprendizaje,
         duracion,
+        descripcion_link,
+        publico_objetivo,
+        storytelling_problema,
+        storytelling_solucion,
+        storytelling_final,
+        palabras_clave,
         estado = "borrador"
     } = req.body;
 
-    const usuario_id = req.user.id; // Obtenido del token
+    const usuario_id = req.user.id; 
 
     try {
         const cursoId = await createCourseModel(
@@ -63,7 +68,13 @@ export const createCourse = async (req, res) => {
             resultados_aprendizaje,
             duracion,
             estado, 
-            usuario_id
+            usuario_id,
+            descripcion_link,
+            publico_objetivo,
+            storytelling_problema,
+            storytelling_solucion,
+            storytelling_final,
+            palabras_clave,
         );
 
         res.status(201).json({ message: 'Curso creado con éxito', cursoId });
@@ -152,6 +163,12 @@ export const getCourseWithDetails = async (req, res) => {
             duracion: rows[0].curso_duracion,
             estado: rows[0].curso_estado,
             fecha_creacion: rows[0].curso_fecha_creacion,
+            descripcion_link: rows[0].descripcion_link,
+            publico_objetivo: rows[0].publico_objetivo,
+            storytelling_problema: rows[0]. storytelling_problema,
+            storytelling_solucion: rows[0].storytelling_solucion,
+            storytelling_final: rows[0].storytelling_final,
+            palabras_clave: rows[0].palabras_clave,
             unidades: [],
         };
 
@@ -218,7 +235,3 @@ export const getCoursesWithDetailsByUserId = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener los cursos con detalles', error });
     }
 };
-
-
-
-
