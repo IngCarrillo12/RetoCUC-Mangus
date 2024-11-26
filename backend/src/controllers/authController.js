@@ -24,6 +24,7 @@ export const register = async (req, res) => {
                 nombre,
                 email,
                 rol,
+                area,
             },
             token,
         });
@@ -56,6 +57,7 @@ export const login = async (req, res) => {
                 nombre: user.nombre,
                 email: user.email,
                 rol: user.rol,
+                area: user.area,
             },
             token,
         });

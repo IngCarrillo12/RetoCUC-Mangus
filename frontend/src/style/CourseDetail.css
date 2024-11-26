@@ -1,41 +1,84 @@
-.container-CourseDetail{
+.container-CourseDetail {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    align-items: flex-start; 
+    gap: 2rem;
+    padding: 2rem;
+    background-color: aliceblue;
+    min-height: 100vh;
+    color: black;
+}
+
+.courseDetail {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 50%;
+    max-width: 900px;
+    color: black;
+    margin-left: 10rem; 
+}
+
+
+.courseDetail-header {
+    text-align: left;
+}
+
+.courseDetail-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.courseDetail-header p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: black;
+}
+
+.courseDetail-stat {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
     width: 100%;
 }
-.courseDetail{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 50%;
-    border: 1px solid violet;
-    padding: 1rem 2rem;
-}
-.courseDetail-header{
-    display: flex;
-    flex-direction: column;
-}
-.courseDetail-header h1{
-    padding: 1rem;
-    font-size: 3rem;
-    font-weight: bold;
-}
-.courseDetail-header p{
-    font-size: 1.2rem;
-}
-.courseDetail-stat{
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-}
-.stat-info{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    list-style: none;
 
+.stat-description {
+    flex: 1;
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-description ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stat-description li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: black;
+    font-weight: 600;
+}
+
+.stat-timeline {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timeline-step .label{
+    font-weight: 700;
+}
+li b{
+    margin-right: 5px;
 }

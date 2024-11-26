@@ -9,7 +9,7 @@ import { MenuHome } from "../components/MenuHome.jsx";
 import FormCreate from '../components/FormCreate.jsx';
 import { SearchBar } from "../components/SearchBar.jsx";
 import { useCourseStore } from '../store/CourseStore.jsx';
-import { CourseDetail } from '../components/CourseDetail.jsx';
+import  CourseDetail  from '../components/CourseDetail.jsx';
 import {Mosaic} from 'react-loading-indicators'
 import BarChartExample from '../components/GraphicResource.jsx';
 import { useAuthStore } from "../store/AuthStore.jsx"; // Importamos el store para obtener el usuario
@@ -33,7 +33,7 @@ useEffect(() => {
   loadCourses('1')
 }, []);
   
-
+console.log(user)
   const courseList = [
     { id: 1, title: "Web Design templates", description: "Learn web design.", progress: 75 },
     { id: 2, title: "React Basics", description: "Understand React concepts.", progress: 40 },
@@ -92,11 +92,11 @@ useEffect(() => {
                         <div>
                           <GraphicBar />
                         </div>                  
-                      </div>
                       <div>
                       <BarChartExample />
                     </div>
-                    </div>
+                   </div>
+                  </div>
                     <div className="dashboard-right">
                   <div className="profile-section">
                     <img
@@ -126,15 +126,7 @@ useEffect(() => {
                     </ul>
                   </div>
 
-                  <button
-                    className="button-logout"
-                    onClick={async () => {
-                      await logout();  // Llamamos a la función logout desde el store
-                      navigate("/login"); // Redirigimos a la página de login
-                    }}
-                  >
-                    Logout
-                  </button>
+
                 </div>
                   </div>
                   

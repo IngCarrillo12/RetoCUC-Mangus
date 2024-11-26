@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/cardCourse.css';
-import {Timeline} from '../components/TimeLine.jsx'
+import Timeline from '../components/TimeLine.jsx'
 export const CardCourse = ({ title, description, estado, onClick}) => {
   return (
     <div className="card" onClick={onClick}>

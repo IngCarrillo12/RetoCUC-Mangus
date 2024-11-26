@@ -7,6 +7,7 @@ import {Home} from './pages/Home.jsx'
 import { Routes, Route } from "react-router-dom";
 import FormCreate from './components/FormCreate.jsx';
 import CommentSection from './components/CommentSection .jsx';
+import CourseDetail from './components/CourseDetail.jsx';
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
     <Route path="/register" element={<Register />} />
     <Route path="/formcreate" element={<FormCreate />} />
     <Route path="/commentsection" element={<CommentSection />} />
+    <Route path="/CourseDetail" element={<CourseDetail />} />
+
   </Routes>
   </>
   )

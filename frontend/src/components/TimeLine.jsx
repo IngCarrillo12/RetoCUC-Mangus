@@ -1,7 +1,7 @@
 import React from "react";
 import "../style/Timeline.css";
 
-export const Timeline = ({ estado }) => {
+ const Timeline = ({ estado }) => {
   return (
     <div className="timeline">
       {/* Paso 1 */}
@@ -33,3 +33,5 @@ export const Timeline = ({ estado }) => {
     </div>
   );
 };
+
+export default Timeline;
