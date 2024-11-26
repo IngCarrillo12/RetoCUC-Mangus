@@ -3,7 +3,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import "../style/formCreate.css";
 import { useAuthStore } from "../store/AuthStore";
 
-export const FormCreate = () => {
+const FormCreate = () => {
 const { user} = useAuthStore();
 
   const {
@@ -135,10 +135,11 @@ const { user} = useAuthStore();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-      <div className="heading">Creación del Plan de Curso</div>
-      <div className="course-header-container" onClick={toggleCourseInfo}>
-        <h2 className="course-header">{watch("titulo") || "Nombre del Curso"}</h2>
-        <span className="course-header-icon">{isCourseInfoCollapsed ? "↓" : "↑"}</span>
+      <div className="heading-container">
+        <div className="heading">Creación del Plan de Curso</div>
+        <div className="course-header-container" onClick={toggleCourseInfo}>
+          <span className="course-header-icon">{isCourseInfoCollapsed ? "▼" : "▲"}</span>
+        </div>
       </div>
 
       {!isCourseInfoCollapsed && (
@@ -313,9 +314,9 @@ const { user} = useAuthStore();
       <h2>Unidades</h2>
       {unitFields.map((unit, unitIndex) => (
         <div key={unit.id} className="form-unit">
-          <div className="unit-header" onClick={() => toggleUnit(unitIndex)}>
-            <h3>Unidad {unitIndex + 1}</h3>
-            <span>{collapsedUnits[unitIndex] ? "↓" : "↑"}</span>
+          <div className="collapsed-header" onClick={() => toggleUnit(unitIndex)}>
+            <h4>Unidad {unitIndex + 1}</h4>
+            <span className="lesson-header">{collapsedUnits[unitIndex] ? "▼" : "▲"}</span>
           </div>
 
           {!collapsedUnits[unitIndex] && (
@@ -341,9 +342,9 @@ const { user} = useAuthStore();
               <h3>Lecciones</h3>
               {unitFields[unitIndex]?.lecciones?.map((lesson, lessonIndex) => (
                 <div key={lessonIndex} className="form-lesson">
-                  <div className="lesson-header" onClick={() => toggleLesson(unitIndex, lessonIndex)}>
+                  <div className="collapsed-header" onClick={() => toggleLesson(unitIndex, lessonIndex)}>
                     <h4>Lección {lessonIndex + 1}</h4>
-                    <span>{collapsedLessons[`${unitIndex}-${lessonIndex}`] ? "↓" : "↑"}</span>
+                    <span>{collapsedLessons[`${unitIndex}-${lessonIndex}`] ? "▼" : "▲"}</span>
                   </div>
 
                   {!collapsedLessons[`${unitIndex}-${lessonIndex}`] && (
@@ -389,42 +390,41 @@ const { user} = useAuthStore();
                   {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].semana_sugerida`)}
                 />
               </div>
-                      {/* Características */}
                       <h4 className="h">Características de la Lección</h4>
-                      {
-                      lesson.recursos?.map((char, charIndex) => (
+                      {lesson.recursos.map((char, charIndex) => (
                         <div key={charIndex} className="form-group">
-                          <label>Tipo de Recurso:</label>
-                          <select className="listaRecursos"
-                        {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`)}
-                        onChange={(e) => {
-                          const otherInput = document.getElementById(`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`);
-                          if (e.target.value === "Otros") {
-                            otherInput.style.display = 'block';
-                          } else {
-                            otherInput.style.display = 'none';
-                            setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value); 
-                          }
-                        }}>
-                        <option value="OVA">OVA</option>
-                        <option value="Videos">Videos</option>
-                        <option value="Infografía">Infografía</option>
-                        <option value="Quices">Quices</option>
-                        <option value="Foro">Foro</option>
-                        <option value="Entregable">Entregable</option>
-                        <option value="Otros">Otros</option>
-                      </select>
+                          <select
+  className="listaRecursos"
+  {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`)}
+  onChange={(e) => {
+    const otherInput = document.getElementById(`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`);
+    if (e.target.value === "Otros") {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value); 
+    }
+  }}
+>
+  <option value="OVA">OVA</option>
+  <option value="Videos">Videos</option>
+  <option value="Infografía">Infografía</option>
+  <option value="Quices">Quices</option>
+  <option value="Foro">Foro</option>
+  <option value="Entregable">Entregable</option>
+  <option value="Otros">Otros</option>
+</select>
 
-                <div id={`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`} style={{ display: 'none' }}>
-                  <label>Especificar Tipo de Recurso</label>
-                  <input
-                    type="text"
-                    onChange={(e) =>
-                      setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value)
-                    } 
-                  />
-                </div>
-                  <label>Nombre de la Característica</label>
+<div id={`otroTipo-${unitIndex}-${lessonIndex}-${charIndex}`} style={{ display: 'none' }}>
+  <label>Especificar Tipo de Recurso</label>
+  <input
+    type="text"
+    onChange={(e) =>
+      setValue(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].tipo`, e.target.value)
+    } 
+  />
+</div>
+<label>Nombre de la Característica</label>
                   <input
                     {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].nombre`)}
                   />
@@ -433,6 +433,7 @@ const { user} = useAuthStore();
                     {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].recursos[${charIndex}].url`)}
                   />
                           <button
+                          className="btn-cancel"
                             type="button"
                             onClick={() => removeCharacteristic(unitIndex, lessonIndex, charIndex)}
                           >
@@ -441,6 +442,7 @@ const { user} = useAuthStore();
                         </div>
                       ))}
                       <button
+                        className="btn-resource"
                         type="button"
                         onClick={() => addCharacteristic(unitIndex, lessonIndex)}
                       >
@@ -457,20 +459,25 @@ const { user} = useAuthStore();
               </button>
                 </div>
               ))}
-              <button type="button" onClick={() => addLessonToUnit(unitIndex)}>
+              <button className="btn-lesson" type="button" onClick={() => addLessonToUnit(unitIndex)}>
                 Añadir Lección
               </button>
             </>
           )}
-          <button type="button" onClick={() => removeUnit(unitIndex)}>
+          <button className="btn-cancel" type="button" onClick={() => removeUnit(unitIndex)}>
             Eliminar Unidad
           </button>
         </div>
       ))}
-      <button type="button" onClick={() => addUnit({ titulo: "", lecciones: [] })}>
+      <button className="btn-unit" type="button" onClick={() => addUnit({ titulo: "", lecciones: [] })}>
         Añadir Unidad
       </button>
-      <button type="submit">Guardar Curso</button>
+
+      <div className="butonesFinales">
+        <button className="btn-submit" type="submit">Guardar Curso</button>
+        <button className="btn-submit" type="submit">Enviar</button>
+      </div>
+      
     </form>
   );
 };

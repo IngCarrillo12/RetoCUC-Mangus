@@ -313,6 +313,3 @@ export const getCoursesWithDetailsByUserIdModel = async (usuario_id) => {
 
     return Array.from(cursosMap.values()); // Devuelve los cursos como un array
 };
-
-
-
