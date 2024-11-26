@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { Timeline } from './TimeLine';
+import React, { useEffect, useState } from 'react';
 import '../style/CourseDetail.css';
 import { CardCourse } from './CardCourse.jsx';
 import { FormCreate } from './formCreate';
+import {FeedbackCards} from '../components/FeedbackCards.jsx'
+import { FeedbackResponse } from './FeedbackResponse.jsx';
+import { useAuthStore } from '../store/AuthStore.jsx';
 
 export const CourseDetail = ({ course }) => {
-  const [isEditing, setIsEditing] = useState(false); // Estado para mostrar/ocultar el formulario de edición
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentCourse, setCurrentCourse] = useState(course); 
+  const { user } = useAuthStore(); 
 
-  const totalLecciones = course.unidades.reduce((sum, unidad) => {
+  useEffect(() => {
+    setCurrentCourse(course); 
+  }, [course]);
+
+  const totalLecciones = currentCourse.unidades.reduce((sum, unidad) => {
     return sum + unidad.lecciones.length;
   }, 0);
 
@@ -15,40 +23,59 @@ export const CourseDetail = ({ course }) => {
     setIsEditing(true); // Activa el modo de edición
   };
 
-  const handleCloseForm = () => {
-    setIsEditing(false); // Cierra el formulario de edición
+  const handleCloseForm = async (updatedCourse) => {
+    setCurrentCourse(updatedCourse) 
+    setIsEditing(false);
   };
 
   return (
     <div className="course-detail">
-      <div className="course-header">
+      {
+        !isEditing?(
+          <div className="course-container">
+            <div className="coursedetail-card">
         <CardCourse
-          title={course.titulo}
-          description={course.descripcion_larga}
-          estado={course.estado}
+          title={currentCourse.titulo}
+          description={currentCourse.descripcion_larga}
+          estado={currentCourse.estado}
           lecciones={totalLecciones}
-          duracion={course.duracion}
-          unidades={course.unidades.length}
+          duracion={currentCourse.duracion}
+          unidades={currentCourse.unidades.length}
         />
         <button className="edit-button" onClick={handleEditClick}>
           Editar
         </button>
       </div>
-
-      {isEditing && (
-        <div className="form-modal">
-          <button className="close-button" onClick={handleCloseForm}>
+      {
+        user?.rol ==='docente'?
+        <FeedbackCards cursoId={course?.id}/>
+        :
+        <FeedbackResponse cursoId={course?.id} adminId={user?.id}/>
+      }
+   
+          </div>
+        
+        ):(
+          <div className="form-modal">
+          <button className="close-button" onClick={()=>setIsEditing(false)}>
             Cerrar
           </button>
           <FormCreate
-            courseData={course} // Pasa los datos del curso al formulario para que sean editables
-            onSubmitAction={(updatedCourse) => {
-              console.log('Curso actualizado:', updatedCourse);
-              handleCloseForm(); // Cierra el formulario después de actualizar
+            courseData={currentCourse} // Pasa los datos del curso al formulario para que sean editables
+            onSubmitAction={async (updatedCourse) => {
+              if (updatedCourse) {
+                handleCloseForm(updatedCourse);
+              }
             }}
           />
         </div>
-      )}
+        )
+      }
+      
+
+     
+        
+
     </div>
   );
 };

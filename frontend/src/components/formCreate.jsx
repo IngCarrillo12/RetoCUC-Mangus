@@ -4,9 +4,11 @@ import "../style/formCreate.css";
 import { useAuthStore } from "../store/AuthStore";
 import { useCourseStore } from "../store/CourseStore";
 
+
 export const FormCreate = ({courseData, onSubmitAction}) => {
 const { user} = useAuthStore();
-const {addCourse, editCourse} = useCourseStore()
+const {addCourse, editCourse, loadCourses} = useCourseStore()
+console.log(courseData)
   const {
     register,
     control,
@@ -179,22 +181,43 @@ const cleanIds = (data) => {
 const onSubmit = async (data) => {
   const cleanedData = cleanIds(data); // Limpia los datos antes de enviarlos
 
-  if (courseData) {
-    // Si se está editando un curso existente
-    await editCourse(courseData.id, {...cleanedData, usuario_id:user?.id});
-    setCurrentCourse({ ...currentCourse, ...updatedCourse })
-  } else {
-    console.log(cleanedData)
-    // Si se está creando un nuevo curso
-    await addCourse(cleanedData);
-  }
+  try {
+    if (courseData) {
+      // Si se está editando un curso existente
+      await editCourse(courseData.id, { ...cleanedData, usuario_id: user?.id });
+    } else {
+      // Si se está creando un nuevo curso
+      await addCourse(cleanedData);
+    }
 
-  // Llama a cualquier acción adicional si se define
-  if (onSubmitAction) {
-    onSubmitAction(cleanedData);
+    // Llama a cualquier acción adicional si se define
+    if (onSubmitAction) {
+      onSubmitAction(cleanedData);
+    }
+
+    // Limpia el formulario
+    reset({
+      usuario_id: user.id || '',
+      titulo: "",
+      categoria: "",
+      duracion: "",
+      programa: "",
+      descripcion_larga: "",
+      descripcion_corta: "",
+      resultados_aprendizaje: "",
+      descripcion_link: "",
+      storytelling_problema: "",
+      storytelling_solucion: "",
+      storytelling_final: "",
+      palabras_clave: "",
+      publico_objetivo: "",
+      unidades: [],
+    });
+
+  } catch (error) {
+    console.error("Error al enviar el formulario:", error);
   }
 };
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-container">

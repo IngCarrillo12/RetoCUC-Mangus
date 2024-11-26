@@ -5,7 +5,8 @@ import { useAuthStore } from './store/AuthStore.jsx';
 import { Login } from './components/Login.jsx';
 import { Register } from './components/Register.jsx';
 import { Home } from './pages/Home.jsx';
-
+import { FeedbackCards } from './components/FeedbackCards.jsx';
+import {FeedbackResponse} from './components/FeedbackResponse.jsx'
 function App() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function App() {
       <Route index path="/login" element={!isAuthenticated ? <Login /> : <Home />} />
       <Route path="/register" element={!isAuthenticated ? <Register /> : <Home />} />
       <Route path="/feedbackcards" element={<FeedbackCards />} />
-      <Route path="/FeedbackCardsResponse" element={<FeedbackCardsResponse />} />
+      <Route path="/FeedbackCardsResponse" element={<FeedbackResponse />} />
     </Routes>
   );
 

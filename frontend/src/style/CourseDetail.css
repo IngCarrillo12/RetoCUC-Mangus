@@ -1,41 +1,32 @@
-.container-CourseDetail{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-}
-.courseDetail{
+
+.course-detail{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    width: 50%;
-    border: 1px solid violet;
+    width: 100%;
     padding: 1rem 2rem;
 }
-.courseDetail-header{
+.course-container{
+    display: flex;
+    gap: 1rem;
+}
+.coursedetail-card{
     display: flex;
     flex-direction: column;
+    width: 50%;
+    background-color: transparent;
 }
-.courseDetail-header h1{
-    padding: 1rem;
-    font-size: 3rem;
-    font-weight: bold;
+.edit-button{
+    width: 25%;
+    height: 60px;
+    background-color: #0fb4eb;
+    color: white;
+    border: 1px solid #0fb4eb;
+    transition: all linear 300ms;
 }
-.courseDetail-header p{
-    font-size: 1.2rem;
-}
-.courseDetail-stat{
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-}
-.stat-info{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    list-style: none;
-
+.edit-button:hover{
+    background-color: white;
+    color: #0fb4eb;
 }

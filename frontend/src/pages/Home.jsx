@@ -35,7 +35,6 @@ useEffect(() => {
   }
 }, []);
   
-
   const filteredCourses = courses.filter((course) =>
     course.titulo.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -43,6 +42,7 @@ useEffect(() => {
     !loading?
       <div className="container-home">
        <MenuHome courses={courses} OnClickButtonCreate={()=>{ 
+                selectedCourseRef.current = null
                 setFormulario(true);
                 setDashboard(false);
                 setCourses(false)
@@ -161,16 +161,19 @@ useEffect(() => {
          {
   Formulario ? (
     <FormCreate
-      courseData={null} // Pasa null para crear un curso nuevo
-      onSubmitAction={(data) => {
-        if (!cursoExistente) {
-          crearCurso(data); // Crea un nuevo curso
-        } else {
-          editarCurso(cursoExistente.id, data); // Edita un curso existente
-        }
-        setFormulario(false); // Cierra el formulario después de crear o editar
-      }}
-    />
+    courseData={selectedCourseRef.current || null} // Pasa el curso seleccionado o null para crear uno nuevo
+    onSubmitAction={(data) => {
+      if (!selectedCourseRef.current) {
+        // Si no hay curso seleccionado, crea un nuevo curso
+        crearCurso(data);
+      } else {
+        // Si hay curso seleccionado, edítalo
+        editarCurso(selectedCourseRef.current.id, data);
+      }
+      setFormulario(false); // Cierra el formulario
+      setDashboard(true); // Redirige al dashboard
+    }}
+  />
   ) : (
     ''
   )

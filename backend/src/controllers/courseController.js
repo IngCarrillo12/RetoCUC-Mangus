@@ -1,4 +1,4 @@
-import {createCourseModel, getCourseByIdModel, getCoursesByUserIdModel, updateCourseModel,deleteCourseModel, getCourseWithDetailsModel, getCoursesWithDetailsByUserIdModel, } from '../models/courseModel.js'
+import {createCourseModel, getCourseByIdModel, getCoursesByUserIdModel, updateCourseModel,deleteCourseModel, getCourseWithDetailsModel, getCoursesWithDetailsByUserIdModel,getAllCoursesWithDetailsModel } from '../models/courseModel.js'
 import {createUnitModel, updateUnitModel, deleteUnitModel, getUnitsByCourseIdModel} from '../models/unitModel.js';
 import {createLessonModel, updateLessonModel, deleteLessonModel, getLessonsByUnitIdModel} from '../models/lessonModel.js';
 import {createResourceModel, updateResourceModel, deleteResourceModel, getResourcesByLessonIdModel} from '../models/resourceModel.js';
@@ -6,7 +6,6 @@ import {createResourceModel, updateResourceModel, deleteResourceModel, getResour
 export const updateGroup = async (req, res) => {
     const { course } = req.body;
     const curso = course;
-
     try {
         // Validar que el curso tenga un ID
         if (!curso.id) {
@@ -98,6 +97,16 @@ export const updateGroup = async (req, res) => {
     } catch (error) {
         console.error('Error al actualizar el grupo:', error);
         res.status(500).json({ message: 'Error al actualizar el grupo', error });
+    }
+};
+
+export const getAllCoursesWithDetails = async (req, res) => {
+    try {
+        const courses = await getAllCoursesWithDetailsModel();
+        res.json(courses);
+    } catch (error) {
+        console.error('Error al obtener todos los cursos:', error);
+        res.status(500).json({ message: 'Error al obtener todos los cursos' });
     }
 };
 

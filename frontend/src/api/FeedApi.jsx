@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const fetchFeedbacks = async (cursoId) => {
+    
   try {
     const { data } = await axios.get(`http://localhost:3000/api/feedback/${cursoId}`);
     return data;
@@ -10,10 +11,10 @@ export const fetchFeedbacks = async (cursoId) => {
   }
 };
 
-export const postFeedback = async (cursoId, adminId, comentario) => {
+export const postFeedback = async (curso_id, admin_id, comentario) => {
   try {
-    const response = await axios.post(`http://localhost:3000/api/feedback/${cursoId}`, {
-      admin_id: adminId,
+    const response = await axios.post(`http://localhost:3000/api/feedback/${curso_id}`, {
+      admin_id,
       comentario,
     });
     return response.data;

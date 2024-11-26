@@ -7,7 +7,8 @@ import {
     createGroup,
     getCourseWithDetails,
     getCoursesWithDetailsByUserId,
-    updateGroup
+    updateGroup,
+    getAllCoursesWithDetails
 } from '../controllers/courseController.js'
 
 import { authenticateToken } from '../middlewares/authMiddleware.js';
@@ -15,6 +16,7 @@ import { authenticateToken } from '../middlewares/authMiddleware.js';
 const router = express.Router();
 
 router.post('/', authenticateToken, createCourse); // Crear curso
+router.get('/all', authenticateToken, getAllCoursesWithDetails);
 router.get('/:curso_id', authenticateToken, getCourseById); // Obtener curso por ID
 router.put('/update/:curso_id', authenticateToken, updateGroup); // Actualizar curso
 router.delete('/:curso_id', authenticateToken, deleteCourse); // Eliminar curso

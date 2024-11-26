@@ -12,6 +12,7 @@ export const useFeedbackStore = create(
       loadFeedbacks: async (cursoId) => {
         set({ loading: true, error: null });
         try {
+
           const feedbacks = await fetchFeedbacks(cursoId);
           set({ feedbacks, loading: false });
         } catch (error) {
@@ -21,8 +22,9 @@ export const useFeedbackStore = create(
 
       sendFeedback: async (curso_id, admin_id, comentario) => {
         set({ loading: true, error: null });
+  
         try {
-          const data = await postFeedback(curso_id, admin_id, comentario);
+          const data = await postFeedback(curso_id= curso_id,admin_id= admin_id, comentario=comentario);
           set({ feedbacks: data.feedbacks, loading: false });
           return data.message;
         } catch (error) {

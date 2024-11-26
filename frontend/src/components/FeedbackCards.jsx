@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { useFeedbackStore } from "../store/FeedStore.jsx";
 import "../style/FeedbackCards.css";
 
-const FeedbackCards = () => {
+export const FeedbackCards = ({cursoId}) => {
   const { feedbacks, loading, error, loadFeedbacks } = useFeedbackStore();
-  
-  const cursoId = 6; 
+
   
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -45,5 +44,3 @@ const FeedbackCards = () => {
     </div>
   );
 };
-
-export default FeedbackCards;

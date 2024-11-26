@@ -4,7 +4,8 @@ import { getCourseByIdModel,} from '../models/courseModel.js';
 // Crear un nuevo feedback
 export const createFeedback = async (req, res) => {
     const { curso_id } = req.params;
-    const { comentario, admin_id } = req.body;    
+    const { comentario, admin_id } = req.body; 
+
     
     try {
         const curso = await getCourseByIdModel(curso_id);
@@ -19,7 +20,7 @@ export const createFeedback = async (req, res) => {
 
 export const getFeedbackByCourseId = async (req, res) => {
     const { curso_id } = req.params;
-
+    console.log(req.params)
     try {
         const feedbacks = await getFeedbackByCourseIdModel(curso_id);
         res.json(feedbacks);

@@ -44,9 +44,7 @@ export const Register = () => {
             action="POST" 
             className='form form-register' 
             onSubmit={handleSubmit(async (values) => {
-              setLoading(true); // Activar estado de carga
               const { Registered, message } = await Register(values); // Llamar a la función Register
-              setLoading(false); // Desactivar estado de carga
               
               if (Registered) {
                 navigate('/home'); // Redirigir si el registro es exitoso

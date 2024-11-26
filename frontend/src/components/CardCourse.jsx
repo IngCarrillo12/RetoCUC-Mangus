@@ -27,9 +27,9 @@ export const CardCourse = ({ title, description, estado, unidades='', duracion='
       </div>
       <div className="card-title">{title}</div>
       <div className="card-subtitle">{description}</div>
-      <div className="card-subtitle">{unidades!=''?`Unidades: ${unidades}`:""}</div>
-      <div className="card-subtitle">{duracion!=''?`Duracion: ${duracion}`:""}</div>
-      <div className="card-subtitle">{lecciones!=''?`Lecciones: ${lecciones}`:""}</div>
+      <div className="card-subtitle"><b>Unidades: </b>{unidades!=''?`${unidades}`:""}</div>
+      <div className="card-subtitle"><b>Duracion: </b>{duracion!=''?`${duracion}`:""}</div>
+      <div className="card-subtitle"><b>Lecciones: </b>{lecciones!=''?`${lecciones}`:""}</div>
       <div className="card-progress">
         <Timeline estado={estado}/>
       </div>

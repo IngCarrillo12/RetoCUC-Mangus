@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useFeedbackStore } from "../store/FeedStore.jsx";
 import "../style/feedbackResponse.css";
 
-const FeedbackResponse = () => {
+export const FeedbackResponse = ({cursoId, adminId}) => {
   const { feedbacks, loading, error, loadFeedbacks, sendFeedback } = useFeedbackStore();
-  
   const [comentario, setComentario] = useState("");
   const [sending, setSending] = useState(false); 
   const [message, setMessage] = useState("");
-  const cursoId = 6;
-  const adminId = 7;
   
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -28,10 +25,9 @@ const FeedbackResponse = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSending(true);
-    console.log({ cursoId, adminId, comentario });
     
     try {
-      const responseMessage = await sendFeedback(cursoId, adminId, comentario);
+      const responseMessage = await sendFeedback(parseInt(cursoId), parseInt(adminId),comentario);
       setMessage(responseMessage);
       setComentario("");
       loadFeedbacks(cursoId);
@@ -95,5 +91,3 @@ const FeedbackResponse = () => {
     </div>
   );  
 };
-
-export default FeedbackResponse;
