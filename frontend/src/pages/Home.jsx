@@ -14,6 +14,8 @@ import {Mosaic} from 'react-loading-indicators'
 import BarChartExample from '../components/GraphicResource.jsx';
 import { useAuthStore } from "../store/AuthStore.jsx"; 
 import {TitleTyping} from '../components/TitleTyping.jsx'
+import sensorImg from '../img/sensor.png';
+
 export const Home= () => {
   const { user, logout } = useAuthStore(); 
   const { loadCourses, loading, error,courses } = useCourseStore() 
@@ -75,7 +77,7 @@ useEffect(() => {
                 Dashboard && (
                   <>
                     <div>
-                      <TitleTyping text={`Welcome, ${user?.nombre || 'Guest'}`}/>
+                      <TitleTyping text={`Bienvenid@, ${user?.nombre || 'Invitado'}`}/>
                     </div>
                   <div className="dashboard">
                     <div className="dashboard-left">
@@ -85,24 +87,24 @@ useEffect(() => {
                         </div>
                         <div>
                           <GraphicBar />
+                        </div>
+                        <div>
+                          <BarChartExample />
                         </div>                  
-                      </div>
-                      <div>
-                      <BarChartExample />
-                    </div>
+                      </div>                      
                     </div>
                     <div className="dashboard-right">
                   <div className="profile-section">
                     <img
-                      src="https://via.placeholder.com/100"
+                      src={sensorImg}
                       alt="Profile"
                       className="profile-image"
                     />
-                    <h2 className="profile-name">{user?.nombre || "Guest"}</h2>
-                    <p className="profile-job">{user?.area || "Professor - Computer Science"}</p>
+                    <h2 className="profile-name">{user?.nombre || "Invitado"}</h2>
+                    <p className="profile-job">{user?.area || "Area no disponible"}</p>
                   </div>
                   <div className="active-courses">
-                    <h3>Courses List</h3>
+                    <h3>Lista de Cursos</h3>
                     <ul>
                       {courses.map((course) => (
                         <li className="course-card" key={course.id}>
@@ -112,11 +114,16 @@ useEffect(() => {
                     </ul>
                   </div>
                   <div className="reminders">
-                    <h3>Reminders</h3>
+                    <h3>¡Bienvenido a bordo!</h3>
                     <ul>
-                      <li>Your next class is tomorrow at 10 AM</li>
-                      <li>Grade assignments for "React Basics"</li>
-                      <li>Prepare slides for JavaScript lecture</li>
+                      <li>¡Bienvenido a nuestro sistema! </li>
+                      <li>Aquí podrás gestionar tus tareas de forma rápida y eficiente.</li>
+                      <li>Estamos listos para ayudarte a alcanzar tus objetivos.</li>
+                    </ul>
+
+                    <h3>Recordatorios</h3>
+                    <ul>
+                      <li>No hay Recordatorios disponibles por el momento...</li>
                     </ul>
                   </div>
                 </div>
@@ -130,8 +137,8 @@ useEffect(() => {
             
             <div className="content-courses">
               <div className="courses-header">
-                <span className="courses-header-title">Courses</span>
-                <span className="courses-header-link">View All</span>
+                <span className="courses-header-title">Cursos</span>
+                <span className="courses-header-link">Ver Todos</span>
               </div>
               <SearchBar onSearch={setSearchQuery} />
               <div className="courses-grid">

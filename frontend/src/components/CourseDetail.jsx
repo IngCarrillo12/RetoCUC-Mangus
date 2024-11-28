@@ -20,7 +20,7 @@ export const CourseDetail = ({ course }) => {
   }, 0);
 
   const handleEditClick = () => {
-    setIsEditing(true); // Activa el modo de edición
+    setIsEditing(true);
   };
 
   const handleCloseForm = async (updatedCourse) => {
@@ -61,7 +61,7 @@ export const CourseDetail = ({ course }) => {
             Cerrar
           </button>
           <FormCreate
-            courseData={currentCourse} // Pasa los datos del curso al formulario para que sean editables
+            courseData={currentCourse}
             onSubmitAction={async (updatedCourse) => {
               if (updatedCourse) {
                 handleCloseForm(updatedCourse);
@@ -70,11 +70,7 @@ export const CourseDetail = ({ course }) => {
           />
         </div>
         )
-      }
-      
-
-     
-        
+      }    
 
     </div>
   );

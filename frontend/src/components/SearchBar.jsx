@@ -10,7 +10,7 @@ export const SearchBar = ({ onSearch }) => {
     <div className="search-bar">
       <input
         type="text"
-        placeholder="Search Courses..."
+        placeholder="Buscar curso..."
         onChange={handleSearch}
       />
     </div>

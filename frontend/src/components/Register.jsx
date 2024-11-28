@@ -68,7 +68,7 @@ export const Register = () => {
               <input type="text" {...register('area',{required:true})} placeholder="Ej: Ingeniero" name="area" className="form-input"/>
             </div>
             <div className="form-group">
-              <label htmlFor="password" className="form-label">Password:</label>
+              <label htmlFor="password" className="form-label">Contraseña:</label>
               <input type="password" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
             </div>
             <div className='container-button'>

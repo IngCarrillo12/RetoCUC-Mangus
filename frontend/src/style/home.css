@@ -174,6 +174,7 @@
 .reminders li {
     font-size: 0.85rem;
     color: #495057;
+    text-align: center;
 }
 
 .home-menu {

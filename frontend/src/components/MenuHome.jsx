@@ -28,7 +28,7 @@ export const MenuHome = ({ courses, OnClickButtonCreate, onClickDashboard, onCli
           onClick={onClickCourses}
         >
           <i className="fas fa-book"></i>
-          <span>Courses</span>
+          <span>Cursos</span>
         </div>        
 
         <ul className="section-list">
@@ -46,7 +46,7 @@ export const MenuHome = ({ courses, OnClickButtonCreate, onClickDashboard, onCli
               onClick={OnClickButtonCreate}
             >
               <i className="fas fa-plus"></i>
-              <span>Create Course</span>
+              <span>Crear Curso</span>
             </button>
           </div>
         </ul>
@@ -56,18 +56,18 @@ export const MenuHome = ({ courses, OnClickButtonCreate, onClickDashboard, onCli
       <section className="menu-section">
         <div className="section-title">
           <i className="fas fa-cog"></i>
-          <span>Settings</span>
+          <span>Configuración</span>
         </div>
         <ul className="section-list">
-          <li>Account</li>
-          <li>Notification</li>
+          <li>Cuenta</li>
+          <li>Notificación</li>
         </ul>
       </section>
 
       <div className="container-logout">
         <button onClick={()=>logout()}>
           <i className="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
+          <span>Cerrar Sesión</span>
         </button>
       </div>
     </div>

@@ -14,7 +14,7 @@ export const Header = () => {
       </div>
       <nav className="header-nav">
         <ul className="nav-list">
-          <li className="list-item">Help</li>
+          <li className="list-item">Ayuda</li>
         </ul>
         {
           isAuthenticated?

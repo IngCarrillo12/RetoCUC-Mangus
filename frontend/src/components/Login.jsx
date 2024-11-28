@@ -51,7 +51,7 @@ export const Login = () => {
     <input type="text" {...register('email',{required:true})} placeholder="Juan@company.com" name="email" className="form-input"/>
 </div>
 <div className="form-group">
-    <label htmlFor="password" className="form-label">Password:</label>
+    <label htmlFor="password" className="form-label">Contraseña:</label>
     <input type="password" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
 </div>  
 

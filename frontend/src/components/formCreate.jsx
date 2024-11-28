@@ -253,7 +253,7 @@ const onSubmit = async (data) => {
             
 
             <div className="form-group">
-              <label htmlFor="duracion">Duración</label>
+              <label htmlFor="duracion">Duración (en horas)</label>
               <input
                 id="duracion"
                 type="text"
@@ -367,7 +367,7 @@ const onSubmit = async (data) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="palabras_clave">Palabras Clave</label>
+              <label htmlFor="palabras_clave">Palabras Clave (separar por comas)</label>
               <input
                 id="palabras_clave"
                 type="text"
@@ -467,7 +467,7 @@ const onSubmit = async (data) => {
               </div>
 
               <div className="form-group">
-                <label>Duración:</label>
+                <label>Duración (en horas):</label>
                 <input
                   id={`duracionLeccion-${unitIndex}-${lessonIndex}`}
                   {...register(`unidades[${unitIndex}].lecciones[${lessonIndex}].duracion`)}
