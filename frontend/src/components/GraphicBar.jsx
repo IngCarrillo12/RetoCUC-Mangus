@@ -3,11 +3,11 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 
 export const GraphicBar = () => {
   const data = [
-    { name: "January", uv: 400 },
-    { name: "February", uv: 300 },
-    { name: "March", uv: 500 },
-    { name: "February", uv: 300 },
-    { name: "March", uv: 500 },
+    { name: "Enero", uv: 400 },
+    { name: "Febrero", uv: 300 },
+    { name: "Marzo", uv: 500 },
+    { name: "Abril", uv: 300 },
+    { name: "Mayo", uv: 500 },
   ];
 
   return (

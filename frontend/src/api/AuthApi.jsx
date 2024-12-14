@@ -1,18 +1,16 @@
 import axios from 'axios'
-export const fetchLogin = async (values)=>{
+export const fetchLogin = async (values) => {
     try {
-        const { email, password } = values
-  
-        const {data} = await axios.post(`http://localhost:3000/api/auth/login`,{email, password}, {withCredentials: true})
-        return data
-    } catch (error) {
-    
-        console.log(`error ${error}`)
-        return error
-    } 
+        const { email, password } = values;
+        
+        const { data } = await axios.post(`http://localhost:3000/api/auth/login`, { email, password }, { withCredentials: true });
 
-    
-}
+        return data;
+    } catch (error) {
+        return { error: error.response?.data?.message || 'Error al conectar con el servidor' };
+    }
+};
+
 
 export const fetchRegister = async (values)=>{
     try{
@@ -22,7 +20,6 @@ export const fetchRegister = async (values)=>{
         return data
     }
     catch(error){
-        console.log(`error ${error}`)
-        return error
+        return { error: error.response?.data?.message || 'Error al conectar con el servidor' };
     }
 }

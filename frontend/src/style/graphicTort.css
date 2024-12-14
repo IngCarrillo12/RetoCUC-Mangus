@@ -1,0 +1,13 @@
+.container-graphicTort {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+  }
+  

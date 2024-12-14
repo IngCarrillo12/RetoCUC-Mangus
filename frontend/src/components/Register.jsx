@@ -8,11 +8,9 @@ import { useAuthStore } from '../store/AuthStore.jsx'
 export const Register = () => {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
-    const { Register } = useAuthStore()
+    const { Register, error, loading } = useAuthStore()
     
     const [hoveredButton, setHoveredButton] = useState(null)
-    const [loading, setLoading] = useState(false) // Estado para el botón "Loading"
-
     return (
       <>
       <div className='container-register'>
@@ -46,9 +44,7 @@ export const Register = () => {
             action="POST" 
             className='form form-register' 
             onSubmit={handleSubmit(async (values) => {
-              setLoading(true); // Activar estado de carga
               const { Registered, message } = await Register(values); // Llamar a la función Register
-              setLoading(false); // Desactivar estado de carga
               
               if (Registered) {
                 navigate('/home'); // Redirigir si el registro es exitoso
@@ -72,13 +68,15 @@ export const Register = () => {
               <input type="text" {...register('area',{required:true})} placeholder="Ej: Ingeniero" name="area" className="form-input"/>
             </div>
             <div className="form-group">
-              <label htmlFor="password" className="form-label">Password:</label>
+              <label htmlFor="password" className="form-label">Contraseña:</label>
               <input type="password" {...register('password',{required:true})} placeholder="*******" name="password" className="form-input"/>
             </div>
             <div className='container-button'>
+
               <button className="button" type='submit'>
                 {loading ? "Loading..." : "Register"}
               </button>
+              
             </div>    
           </form>
         </div>

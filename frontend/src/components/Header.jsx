@@ -1,10 +1,12 @@
 import "../style/header.css";
 import React from "react";
-import {useAuthStore} from '../store/AuthStore.jsx'
+import {useAuthStore} from '../store/AuthStore.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const { logout } = useAuthStore();
+  
   return (    
     <header className="header">
       <div className="header-slogan">
@@ -12,8 +14,6 @@ export const Header = () => {
       </div>
       <nav className="header-nav">
         <ul className="nav-list">
-          <li className="list-item">Inicio</li>
-          <li className="list-item">Curso</li>
           <li className="list-item">Ayuda</li>
         </ul>
         {

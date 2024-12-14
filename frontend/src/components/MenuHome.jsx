@@ -1,7 +1,9 @@
 import React from 'react';
 import '../style/menuHome.css';
+import { useAuthStore } from '../store/AuthStore';
 
-export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario }) => {
+export const MenuHome = ({ courses, OnClickButtonCreate, onClickDashboard, onClickCourses,selectedCourseRef, OnClickCourse}) => {
+  const {logout} = useAuthStore()
   return (
     <div className="home-menu">
       <h3 className="menu-title">
@@ -12,11 +14,7 @@ export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario })
         <div className="menu-dashboard">
           <div
             className="section-title"
-            onClick={() => {
-              setCourses(false);
-              setDashboard(true);
-              setFormulario(false)
-            }}
+            onClick={onClickDashboard}
           >
             <i className="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
@@ -27,52 +25,51 @@ export const MenuHome = ({nameCourse, setCourses, setDashboard, setFormulario })
       <section className="menu-section">
         <div
           className="section-title"
-          onClick={() => {
-            setCourses(true);
-            setDashboard(false);
-            setFormulario(false)
-          }}
+          onClick={onClickCourses}
         >
           <i className="fas fa-book"></i>
-          <span>Courses</span>
-        </div>
+          <span>Cursos</span>
+        </div>        
 
         <ul className="section-list">
-          <li>Course</li>
-          <li>Course</li>
-          <li>Course</li>
-          <li>Course</li>
-          <li>Course</li>
-          
+          {courses.map((course) => (
+            <li key={course.id} className="course-item"  onClick={() => {
+              selectedCourseRef.current = course;
+              OnClickCourse();
+            }}>
+              <i className="fas fa-book course-icon"></i>
+              <span className="course-title">{course.titulo}</span>
+            </li>
+          ))}
           <div className="section-container-button">
-            <button onClick={()=>{setFormulario(true); setDashboard(false); setCourses(false)}}>
+            <button
+              onClick={OnClickButtonCreate}
+            >
               <i className="fas fa-plus"></i>
-              <span>Create Course</span>
+              <span>Crear Curso</span>
             </button>
           </div>
-
         </ul>
+
       </section>
 
       <section className="menu-section">
         <div className="section-title">
           <i className="fas fa-cog"></i>
-          <span>Settings</span>
+          <span>Configuración</span>
         </div>
         <ul className="section-list">
-          <li>Account</li>
-          <li>Notification</li>
+          <li>Cuenta</li>
+          <li>Notificación</li>
         </ul>
       </section>
 
       <div className="container-logout">
-        <button>
+        <button onClick={()=>logout()}>
           <i className="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
+          <span>Cerrar Sesión</span>
         </button>
       </div>
     </div>
   );
 };
-
-

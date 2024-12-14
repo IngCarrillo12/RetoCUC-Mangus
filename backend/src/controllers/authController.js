@@ -5,18 +5,16 @@ import bcrypt from 'bcryptjs';
 
 // Registro de usuario
 export const register = async (req, res) => {
-    const { nombre, email, contraseña, area } = req.body;
-
+    const { nombre, email, contrasena, area , rol='docente' } = req.body;
     try {
-        const hashedPassword = await bcrypt.hash(contraseña, 10);
-
-        const userId = await createUser(nombre, email, hashedPassword, 'user', area);
+        const hashedPassword = await bcrypt.hash(contrasena, 10);
+        const userId = await createUser(nombre, email, hashedPassword, rol , area);
         const token = jwt.sign(
             { id: userId, email, rol },
             JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '5d' }
         );
-
+      
         // Responder con los datos del usuario y token
         res.status(201).json({
             message: 'Usuario registrado y autenticado con éxito',
@@ -25,6 +23,7 @@ export const register = async (req, res) => {
                 nombre,
                 email,
                 rol,
+                area,
             },
             token,
         });
@@ -38,30 +37,35 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        // Verificar si el usuario existe
         const user = await findByEmail(email);
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
 
+        // Verificar si la contraseña es correcta
         const isPasswordValid = await bcrypt.compare(password, user.contraseña_hash);
         if (!isPasswordValid) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
+        // Generar el token de acceso
         const token = jwt.sign(
-            { id: user.usuario_id, rol: user.rol },
+            { id: user.id, rol: user.rol },
             JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '5d' } // Token con expiración de 5 días
         );
 
-        // Responder con los datos del usuario y token
+        // Enviar la respuesta con los datos del usuario y el token
         res.json({
             message: 'Login exitoso',
             user: {
-                id: user.usuario_id,
+                id: user.id,
                 nombre: user.nombre,
                 email: user.email,
                 rol: user.rol,
+                area: user.area
             },
             token,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Error al iniciar sesión', error });
+        console.error(error); // Imprimir el error en el servidor para debugging
+        res.status(500).json({ message: 'Error al iniciar sesión', error: error.message || error });
     }
 };
